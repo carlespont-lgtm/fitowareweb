@@ -17,6 +17,100 @@ const t = useTranslations(locale);
   </div>
 </section>
 
+<!-- SELECTOR D'EDICIONS (amb efecte) -->
+<section class="bg-white pt-16">
+  <div class="mx-auto max-w-3xl px-4 text-center">
+    <div id="ed-tabs" class="relative mx-auto inline-flex rounded-full border border-slate-200 bg-slate-50 p-1">
+      <span id="ed-indicator" class="absolute inset-y-1 left-1 rounded-full bg-brand-500 shadow transition-transform duration-300 ease-out" style="width:calc(50% - 4px)"></span>
+      <button type="button" data-ed="bc" class="relative z-10 rounded-full px-5 py-2.5 text-sm font-semibold text-white transition-colors sm:px-7">{t('ed.bc.name')}</button>
+      <button type="button" data-ed="ge" class="relative z-10 rounded-full px-5 py-2.5 text-sm font-semibold text-slate-500 transition-colors sm:px-7">{t('ed.ge.name')}</button>
+    </div>
+
+    <div class="relative mt-8 min-h-[15rem] text-left">
+      <!-- Panell Business Central -->
+      <div data-panel="bc" class="ed-panel">
+        <div class="rounded-2xl border-2 border-ink-900/10 bg-slate-50/60 p-8">
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-ink-900/5 px-3 py-1 text-xs font-semibold text-ink-800">
+            <Icon name="cloud" class="h-3.5 w-3.5" /> {t('ed.bc.tag')}
+          </span>
+          <h3 class="mt-4 text-2xl font-bold text-ink-900">{t('ed.bc.name')}</h3>
+          <p class="mt-1 text-sm font-semibold text-brand-700">{t('ed.bc.platform')}</p>
+          <p class="mt-4 leading-relaxed text-slate-600">{t('ed.bc.d')}</p>
+          <div class="mt-6 flex flex-wrap items-center gap-4">
+            <a href="https://www.ionnavis.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg bg-ink-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-ink-800">
+              {t('ed.bc.cta')} <Icon name="external" class="h-4 w-4" />
+            </a>
+            <img src="/brand/ionnavis.svg" alt="IONNAVIS" width="40" height="40" class="h-10 w-10 rounded-lg" />
+          </div>
+        </div>
+      </div>
+      <!-- Panell GestioERP -->
+      <div data-panel="ge" class="ed-panel is-hidden">
+        <div class="rounded-2xl border-2 border-brand-500 bg-brand-50/40 p-8">
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-brand-100 px-3 py-1 text-xs font-semibold text-brand-700">
+            <Icon name="sparkles" class="h-3.5 w-3.5" /> {t('ed.ge.tag')}
+          </span>
+          <h3 class="mt-4 text-2xl font-bold text-ink-900">{t('ed.ge.name')}</h3>
+          <p class="mt-1 text-sm font-semibold text-brand-700">{t('ed.ge.platform')}</p>
+          <p class="mt-4 leading-relaxed text-slate-600">{t('ed.ge.d')}</p>
+          <div class="mt-6 flex flex-wrap items-center gap-4">
+            <a href="https://gestioerp.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-600">
+              {t('ed.ge.cta')} <Icon name="external" class="h-4 w-4" />
+            </a>
+            <img src="/brand/gestioerp-mark.svg" alt="GestioERP" width="40" height="40" class="h-10 w-10 rounded-lg" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ed-panel {
+    transition: opacity 0.32s ease, transform 0.32s ease;
+  }
+  .ed-panel.is-hidden {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ed-panel { transition: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    function initEdTabs() {
+      var tabs = document.getElementById('ed-tabs');
+      if (!tabs || tabs.dataset.bound) return;
+      tabs.dataset.bound = '1';
+      var indicator = document.getElementById('ed-indicator');
+      var btns = tabs.querySelectorAll('[data-ed]');
+      var panels = document.querySelectorAll('[data-panel]');
+      function select(key) {
+        btns.forEach(function (b) {
+          var on = b.getAttribute('data-ed') === key;
+          b.classList.toggle('text-white', on);
+          b.classList.toggle('text-slate-500', !on);
+        });
+        if (indicator) indicator.style.transform = key === 'ge' ? 'translateX(100%)' : 'translateX(0)';
+        panels.forEach(function (p) {
+          p.classList.toggle('is-hidden', p.getAttribute('data-panel') !== key);
+        });
+      }
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () { select(b.getAttribute('data-ed')); });
+      });
+    }
+    document.addEventListener('astro:page-load', initEdTabs);
+    if (document.readyState !== 'loading') initEdTabs();
+    else document.addEventListener('DOMContentLoaded', initEdTabs);
+  })();
+</script>
+
 <!-- EDICIONES -->
 <section class="bg-white py-20">
   <div class="mx-auto max-w-6xl px-4">

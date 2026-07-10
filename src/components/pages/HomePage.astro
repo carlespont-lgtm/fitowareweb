@@ -18,12 +18,12 @@ const elements = [
 ];
 
 const features = [
-  { k: 'species', icon: 'sprout' },
-  { k: 'passport', icon: 'qr' },
-  { k: 'traceability', icon: 'layers' },
-  { k: 'labels', icon: 'tag' },
-  { k: 'pz', icon: 'shield' },
-  { k: 'duplicate', icon: 'printer' },
+  { k: 'species', icon: 'sprout', grad: ['#a3e635', '#4d7c0f'] },
+  { k: 'passport', icon: 'qr', grad: ['#60a5fa', '#1d4ed8'] },
+  { k: 'traceability', icon: 'layers', grad: ['#c084fc', '#7c3aed'] },
+  { k: 'labels', icon: 'tag', grad: ['#fbbf24', '#d97706'] },
+  { k: 'pz', icon: 'shield', grad: ['#f87171', '#b91c1c'] },
+  { k: 'duplicate', icon: 'printer', grad: ['#22d3ee', '#0e7490'] },
 ];
 
 const steps = ['s1', 's2', 's3'];
@@ -141,7 +141,7 @@ const steps = ['s1', 's2', 's3'];
       {
         features.map((f) => (
           <div class="reveal group rounded-2xl border border-slate-100 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-            <span class="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-leaf-400 to-brand-600 text-white shadow-sm">
+            <span class="grid h-12 w-12 place-items-center rounded-xl text-white shadow-sm" style={`background:linear-gradient(135deg, ${f.grad[0]}, ${f.grad[1]})`}>
               <Icon name={f.icon} class="h-6 w-6" />
             </span>
             <h3 class="mt-5 text-lg font-bold text-ink-900">{t(`feat.${f.k}.t`)}</h3>
