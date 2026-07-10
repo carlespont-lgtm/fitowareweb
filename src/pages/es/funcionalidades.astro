@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FeaturesPage from '../../components/pages/FeaturesPage.astro';
+import { useTranslations } from '../../i18n/utils';
+const t = useTranslations('es');
+---
+<BaseLayout title={t('nav.features')} description={t('features.subtitle')}>
+  <FeaturesPage locale="es" />
+</BaseLayout>

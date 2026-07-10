@@ -1,0 +1,295 @@
+---
+import { useTranslations, localizedPath, type Locale } from '../../i18n/utils';
+import Icon from '../Icon.astro';
+import BrandFamily from '../BrandFamily.astro';
+import Partners from '../Partners.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const elements = [
+  { k: 'a', icon: 'sprout' },
+  { k: 'b', icon: 'shield' },
+  { k: 'c', icon: 'layers' },
+  { k: 'd', icon: 'tag' },
+];
+
+const features = [
+  { k: 'species', icon: 'sprout' },
+  { k: 'passport', icon: 'qr' },
+  { k: 'traceability', icon: 'layers' },
+  { k: 'labels', icon: 'tag' },
+  { k: 'pz', icon: 'shield' },
+  { k: 'duplicate', icon: 'printer' },
+];
+
+const steps = ['s1', 's2', 's3'];
+---
+<!-- HERO -->
+<section class="relative overflow-hidden bg-gradient-to-br from-ink-950 via-ink-900 to-brand-800">
+  <div class="fito-dots absolute inset-0 opacity-60"></div>
+  <div class="pointer-events-none absolute -right-32 -top-40 h-[28rem] w-[28rem] rounded-full bg-leaf-400/20 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-40 -left-32 h-[28rem] w-[28rem] rounded-full bg-brand-400/20 blur-3xl"></div>
+
+  <div class="relative mx-auto max-w-6xl px-4 py-20 sm:py-24">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div class="max-w-2xl">
+        <div class="flex flex-col items-start gap-3">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-sm font-semibold text-white backdrop-blur">
+            <img src="/brand/siamcloud-mark.svg" alt="SIAM Cloud" width="20" height="20" class="h-5 w-5 rounded" />
+            {t('hero.siamproduct')}
+          </span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-sm font-medium text-white backdrop-blur">
+            <Icon name="leaf" class="h-4 w-4 text-leaf-300" />
+            {t('hero.badge')}
+          </span>
+        </div>
+
+        <h1 class="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl">
+          {t('hero.title1')}<br class="hidden sm:block" /> {t('hero.title2')}
+        </h1>
+
+        <p class="mt-6 text-lg leading-relaxed text-brand-50/85">{t('hero.subtitle')}</p>
+
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a
+            href={localizedPath('features', locale)}
+            class="btn-shine inline-flex items-center gap-2 rounded-lg bg-brand-500 px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand-900/30 transition hover:bg-brand-400"
+          >
+            {t('hero.cta1')}
+            <Icon name="arrow" class="h-5 w-5" />
+          </a>
+          <a
+            href={localizedPath('contact', locale)}
+            class="inline-flex items-center gap-2 rounded-lg border border-white/25 bg-white/5 px-7 py-3.5 text-base font-semibold text-white backdrop-blur transition hover:bg-white/15"
+          >
+            {t('hero.cta2')}
+          </a>
+        </div>
+
+        <p class="mt-8 text-sm font-medium text-brand-100/80">{t('hero.audience')}</p>
+      </div>
+
+      <div class="reveal is-visible">
+        <img src="/mockups/vivero.svg" alt="Vivero de plantas ornamentales" width="560" height="460" class="mx-auto w-full max-w-lg drop-shadow-2xl" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ELEMENTOS A·B·C·D -->
+<section class="border-b border-slate-100 bg-white">
+  <div class="mx-auto max-w-6xl px-4 py-16">
+    <h2 class="text-center text-sm font-bold uppercase tracking-widest text-brand-600">{t('stats.title')}</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        elements.map((e) => (
+          <div class="reveal rounded-2xl border border-slate-100 bg-slate-50/60 p-6">
+            <div class="flex items-center gap-3">
+              <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700">
+                <Icon name={e.icon} class="h-5 w-5" />
+              </span>
+              <span class="text-xs font-bold uppercase tracking-widest text-brand-600">{t(`stats.${e.k}.d`)}</span>
+            </div>
+            <p class="mt-4 text-lg font-bold text-ink-900">{t(`stats.${e.k}`)}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<Partners locale={locale} />
+
+<!-- PRODUCTO ESTRELLA -->
+<section class="bg-slate-50 py-20">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-ink-950 via-ink-900 to-brand-800 px-8 py-12 sm:px-12">
+      <div class="fito-dots absolute inset-0 opacity-40"></div>
+      <div class="relative">
+        <p class="text-sm font-bold uppercase tracking-widest text-leaf-300">{t('star.eyebrow')}</p>
+        <h2 class="mt-3 max-w-3xl text-2xl font-extrabold tracking-tight text-white sm:text-3xl">{t('star.title')}</h2>
+        <p class="mt-4 max-w-2xl text-brand-50/85">{t('star.desc')}</p>
+        <div class="mt-8">
+          <p class="text-xs font-bold uppercase tracking-widest text-brand-200/80">{t('audience.title')}</p>
+          <div class="mt-3 flex flex-wrap gap-2.5">
+            <span class="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur">{t('audience.1')}</span>
+            <span class="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur">{t('audience.2')}</span>
+            <span class="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur">{t('audience.3')}</span>
+            <span class="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur">{t('audience.4')}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNCIONALIDADES -->
+<section class="bg-white py-24">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="max-w-2xl">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand-600">{t('features.eyebrow')}</p>
+      <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl">{t('features.title')}</h2>
+      <p class="mt-4 text-lg text-slate-600">{t('features.subtitle')}</p>
+    </div>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        features.map((f) => (
+          <div class="reveal group rounded-2xl border border-slate-100 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-leaf-400 to-brand-600 text-white shadow-sm">
+              <Icon name={f.icon} class="h-6 w-6" />
+            </span>
+            <h3 class="mt-5 text-lg font-bold text-ink-900">{t(`feat.${f.k}.t`)}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{t(`feat.${f.k}.d`)}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- POR QUÉ FITOWARE -->
+<section class="bg-slate-50 py-24">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="max-w-2xl">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand-600">{t('why.eyebrow')}</p>
+      <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl">{t('why.title')}</h2>
+    </div>
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        ['b1', 'b2', 'b3', 'b4'].map((b) => (
+          <div class="reveal rounded-2xl border border-slate-100 bg-white p-7 shadow-sm">
+            <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700">
+              <Icon name="check-circle" class="h-6 w-6" />
+            </span>
+            <h3 class="mt-5 text-base font-bold text-ink-900">{t(`why.${b}.t`)}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{t(`why.${b}.d`)}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="bg-white py-24">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="max-w-2xl">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand-600">{t('how.eyebrow')}</p>
+      <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl">{t('how.title')}</h2>
+    </div>
+    <div class="mt-14 grid gap-8 lg:grid-cols-3">
+      {
+        steps.map((s, i) => (
+          <div class="reveal relative rounded-2xl border border-slate-100 bg-slate-50/60 p-8">
+            <span class="absolute -top-4 left-8 grid h-9 w-9 place-items-center rounded-full bg-ink-900 text-sm font-bold text-white">
+              {i + 1}
+            </span>
+            <h3 class="mt-3 text-lg font-bold text-ink-900">{t(`how.${s}.t`)}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{t(`how.${s}.d`)}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- EDICIONES (preview) -->
+<section class="bg-slate-50 py-24">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="max-w-2xl">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand-600">{t('editions.eyebrow')}</p>
+      <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl">{t('editions.title')}</h2>
+      <p class="mt-4 text-lg text-slate-600">{t('editions.subtitle')}</p>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-2">
+      <div class="reveal flex flex-col rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <span class="inline-flex w-fit items-center gap-1.5 rounded-full bg-ink-900/5 px-3 py-1 text-xs font-semibold text-ink-800">
+          <Icon name="cloud" class="h-3.5 w-3.5" /> {t('ed.bc.tag')}
+        </span>
+        <h3 class="mt-4 text-xl font-bold text-ink-900">{t('ed.bc.name')}</h3>
+        <p class="mt-1 text-sm font-medium text-brand-700">{t('ed.bc.platform')}</p>
+        <p class="mt-4 flex-1 text-sm leading-relaxed text-slate-600">{t('ed.bc.d')}</p>
+        <div class="mt-5 flex items-center gap-2.5">
+          <img src="/brand/ionnavis.svg" alt="IONNAVIS" width="40" height="40" class="h-10 w-10 rounded-lg" />
+          <div class="text-xs leading-tight">
+            <p class="font-semibold text-ink-900">Partner IONNAVIS</p>
+            <p class="text-slate-500">Microsoft Dynamics 365 Business Central</p>
+          </div>
+        </div>
+        <a href="https://www.ionnavis.com" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 transition hover:gap-2.5">
+          {t('ed.bc.cta')} <Icon name="external" class="h-4 w-4" />
+        </a>
+      </div>
+
+      <div class="reveal flex flex-col rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <span class="inline-flex w-fit items-center gap-1.5 rounded-full bg-brand-100 px-3 py-1 text-xs font-semibold text-brand-700">
+          <Icon name="sparkles" class="h-3.5 w-3.5" /> {t('ed.ge.tag')}
+        </span>
+        <h3 class="mt-4 text-xl font-bold text-ink-900">{t('ed.ge.name')}</h3>
+        <p class="mt-1 text-sm font-medium text-brand-700">{t('ed.ge.platform')}</p>
+        <p class="mt-4 flex-1 text-sm leading-relaxed text-slate-600">{t('ed.ge.d')}</p>
+        <a href="https://gestioerp.com" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 transition hover:gap-2.5">
+          {t('ed.ge.cta')} <Icon name="external" class="h-4 w-4" />
+        </a>
+      </div>
+    </div>
+
+    <p class="mt-8 flex items-center gap-2 text-sm text-slate-500">
+      <Icon name="check-circle" class="h-5 w-5 shrink-0 text-brand-600" />
+      {t('editions.regulation')}
+    </p>
+  </div>
+</section>
+
+<!-- CIFRAS -->
+<section class="bg-gradient-to-br from-brand-600 to-brand-800 py-16">
+  <div class="mx-auto max-w-6xl px-4">
+    <p class="text-center text-sm font-bold uppercase tracking-widest text-brand-100/80">{t('figs.title')}</p>
+    <div class="mt-8 grid gap-8 text-center sm:grid-cols-2 lg:grid-cols-4">
+      {
+        ['1', '2', '3', '4'].map((n) => (
+          <div class="reveal">
+            <p class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">{t(`fig.${n}.k`)}</p>
+            <p class="mt-2 text-sm text-brand-50/85">{t(`fig.${n}.t`)}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- GRUPO SIAM CLOUD -->
+<section class="relative overflow-hidden bg-ink-950 py-20">
+  <div class="fito-dots absolute inset-0 opacity-40"></div>
+  <div class="relative mx-auto max-w-6xl px-4">
+    <div class="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
+      <div class="max-w-2xl">
+        <p class="text-sm font-bold uppercase tracking-widest text-leaf-300">{t('group.eyebrow')}</p>
+        <h2 class="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">{t('group.title')}</h2>
+        <p class="mt-4 text-brand-50/80">{t('group.desc')}</p>
+      </div>
+      <a href="https://siamcloud.es" target="_blank" rel="noopener" class="inline-flex shrink-0 items-center gap-2 rounded-lg border border-white/25 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15">
+        {t('group.cta')} <Icon name="external" class="h-4 w-4" />
+      </a>
+    </div>
+    <BrandFamily locale={locale} />
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-gradient-to-br from-brand-600 to-brand-800 py-20">
+  <div class="mx-auto max-w-3xl px-4 text-center">
+    <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">{t('cta.title')}</h2>
+    <p class="mt-4 text-lg text-brand-50/90">{t('cta.subtitle')}</p>
+    <a href={localizedPath('contact', locale)} class="mt-8 inline-flex items-center gap-2 rounded-lg bg-white px-7 py-3.5 text-base font-semibold text-brand-700 shadow-lg transition hover:bg-brand-50">
+      {t('cta.button')} <Icon name="arrow" class="h-5 w-5" />
+    </a>
+  </div>
+</section>

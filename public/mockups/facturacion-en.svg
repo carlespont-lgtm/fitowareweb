@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="760" height="480" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" role="img" aria-label="Pantalla de edición de una factura de venta">
+  <defs>
+    <filter id="sh" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#0e6354" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect width="760" height="480" fill="#ecfdf5"/>
+  <rect x="40" y="28" width="680" height="424" rx="16" fill="#ffffff" stroke="#d8e0e6" filter="url(#sh)"/>
+  <path d="M40 44 a16 16 0 0 1 16 -16 h648 a16 16 0 0 1 16 16 v26 h-680 z" fill="#0d9e80"/>
+  <circle cx="64" cy="44" r="5" fill="#ffffff" opacity="0.85"/>
+  <circle cx="82" cy="44" r="5" fill="#ffffff" opacity="0.6"/>
+  <circle cx="100" cy="44" r="5" fill="#ffffff" opacity="0.45"/>
+  <text x="380" y="49" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="600">Sales invoice · FAC2026/0042</text>
+
+  <!-- cabecera cliente / fecha / estado -->
+  <text x="60" y="100" fill="#0f172a" font-size="15" font-weight="700">Restaurante Demos S.L.</text>
+  <text x="60" y="118" fill="#64748b" font-size="11.5">B-43716489 · Reus (Tarragona)</text>
+  <text x="688" y="100" text-anchor="end" fill="#64748b" font-size="11.5">Fecha: 12/06/2026</text>
+  <rect x="600" y="108" width="88" height="22" rx="11" fill="#d0fbe7"/>
+  <text x="644" y="123" text-anchor="middle" fill="#0c7d68" font-size="11" font-weight="700">Pagada</text>
+
+  <!-- tabla cabecera -->
+  <rect x="60" y="146" width="628" height="28" rx="6" fill="#f1f5f9"/>
+  <text x="74" y="164" fill="#475569" font-size="10.5" font-weight="600">REFERENCE</text>
+  <text x="190" y="164" fill="#475569" font-size="10.5" font-weight="600">DESCRIPTION</text>
+  <text x="468" y="164" fill="#475569" font-size="10.5" font-weight="600" text-anchor="end">QTY.</text>
+  <text x="548" y="164" fill="#475569" font-size="10.5" font-weight="600" text-anchor="end">PRICE</text>
+  <text x="600" y="164" fill="#475569" font-size="10.5" font-weight="600" text-anchor="end">IVA</text>
+  <text x="680" y="164" fill="#475569" font-size="10.5" font-weight="600" text-anchor="end">TOTAL</text>
+
+  <g font-size="11.5" fill="#334155">
+    <text x="74" y="194" font-weight="600">MENU-DIA</text>
+    <text x="190" y="194">Menú del día (servicios)</text>
+    <text x="468" y="194" text-anchor="end">40</text>
+    <text x="548" y="194" text-anchor="end">12,50 €</text>
+    <text x="600" y="194" text-anchor="end">10%</text>
+    <text x="680" y="194" text-anchor="end" font-weight="600">550,00 €</text>
+    <line x1="60" y1="206" x2="688" y2="206" stroke="#eef2f6"/>
+
+    <text x="74" y="228" font-weight="600">REFRESCO</text>
+    <text x="190" y="228">Bebidas y refrescos</text>
+    <text x="468" y="228" text-anchor="end">40</text>
+    <text x="548" y="228" text-anchor="end">2,20 €</text>
+    <text x="600" y="228" text-anchor="end">21%</text>
+    <text x="680" y="228" text-anchor="end" font-weight="600">88,00 €</text>
+    <line x1="60" y1="240" x2="688" y2="240" stroke="#eef2f6"/>
+
+    <text x="74" y="262" font-weight="600">CAFE</text>
+    <text x="190" y="262">Café e infusiones</text>
+    <text x="468" y="262" text-anchor="end">30</text>
+    <text x="548" y="262" text-anchor="end">1,40 €</text>
+    <text x="600" y="262" text-anchor="end">10%</text>
+    <text x="680" y="262" text-anchor="end" font-weight="600">42,00 €</text>
+  </g>
+
+  <!-- + añadir línea -->
+  <text x="74" y="292" fill="#0d9e80" font-size="11.5" font-weight="700">+ Add line</text>
+
+  <!-- totales -->
+  <rect x="448" y="306" width="240" height="106" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="466" y="330" fill="#64748b" font-size="11.5">Taxable base</text>
+  <text x="672" y="330" text-anchor="end" fill="#334155" font-size="11.5">680,00 €</text>
+  <text x="466" y="352" fill="#64748b" font-size="11.5">IVA (10% + 21%)</text>
+  <text x="672" y="352" text-anchor="end" fill="#334155" font-size="11.5">82,48 €</text>
+  <line x1="466" y1="364" x2="672" y2="364" stroke="#e2e8f0"/>
+  <text x="466" y="392" fill="#0f172a" font-size="14" font-weight="800">Total</text>
+  <text x="672" y="392" text-anchor="end" fill="#0c7d68" font-size="16" font-weight="800">762,48 €</text>
+
+  <!-- botones -->
+  <rect x="60" y="378" width="120" height="34" rx="8" fill="#ffffff" stroke="#0d9e80"/>
+  <text x="120" y="400" text-anchor="middle" fill="#0d9e80" font-size="12.5" font-weight="700">View PDF</text>
+  <rect x="192" y="378" width="120" height="34" rx="8" fill="#0d9e80"/>
+  <path d="M210 395 l5 5 l9 -10" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="256" y="400" text-anchor="middle" fill="#ffffff" font-size="12.5" font-weight="700">Save</text>
+</svg>

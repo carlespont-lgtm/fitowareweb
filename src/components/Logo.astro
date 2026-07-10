@@ -1,0 +1,35 @@
+---
+interface Props {
+  size?: 'md' | 'lg';
+  class?: string;
+}
+const { size = 'md', class: className = '' } = Astro.props;
+const mark = size === 'lg' ? 'h-11 w-11' : 'h-9 w-9';
+const wm = size === 'lg' ? 'text-xl' : 'text-lg';
+const uid = `fw-${size}`;
+---
+<span class={`flex items-center gap-2.5 ${className}`}>
+  <span class={`relative ${mark} shrink-0`}>
+    <svg viewBox="0 0 48 48" class="h-full w-full drop-shadow-sm" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id={`${uid}-leaf`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#a5d76e" />
+          <stop offset="0.5" stop-color="#5fb04a" />
+          <stop offset="1" stop-color="#2f7d32" />
+        </linearGradient>
+      </defs>
+      <!-- montículo / horizonte -->
+      <path d="M4 37 C 15 29, 33 29, 44 37 L44 40 C33 33 15 33 4 40 Z" fill="#2f7d32" />
+      <!-- tallo -->
+      <rect x="21.5" y="21" width="5" height="13" rx="2.2" fill="#4ca346" />
+      <!-- hoja izquierda -->
+      <rect x="6" y="6" width="16" height="16" rx="5" fill={`url(#${uid}-leaf)`} />
+      <!-- hoja derecha -->
+      <rect x="26" y="6" width="16" height="16" rx="5" fill={`url(#${uid}-leaf)`} />
+    </svg>
+  </span>
+  <span class="flex flex-col leading-none">
+    <span class={`font-extrabold tracking-wide ${wm}`} style="color:#2f7d32">FITOWARE</span>
+    <span class="mt-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.28em]" style="color:#5fb04a">Cultivamos</span>
+  </span>
+</span>

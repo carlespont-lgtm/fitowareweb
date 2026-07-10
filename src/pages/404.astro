@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+---
+<BaseLayout title="404" noindex={true}>
+  <section class="mx-auto flex max-w-2xl flex-col items-center px-4 py-28 text-center">
+    <span class="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-leaf-400 to-brand-600 text-white shadow-sm">
+      <Icon name="leaf" class="h-8 w-8" />
+    </span>
+    <h1 class="mt-8 text-5xl font-extrabold tracking-tight text-ink-900">404</h1>
+    <p class="mt-4 text-lg text-slate-600">Aquesta pàgina no existeix / Esta página no existe / Page not found.</p>
+    <a href="/" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-600">
+      ← Fitoware
+    </a>
+  </section>
+</BaseLayout>

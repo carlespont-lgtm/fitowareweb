@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EditionsPage from '../components/pages/EditionsPage.astro';
+import { useTranslations } from '../i18n/utils';
+const t = useTranslations('ca');
+---
+<BaseLayout title={t('nav.editions')} description={t('editions.subtitle')}>
+  <EditionsPage locale="ca" />
+</BaseLayout>

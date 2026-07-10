@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalPage from '../../components/pages/LegalPage.astro';
+import { useTranslations } from '../../i18n/utils';
+const t = useTranslations('es');
+---
+<BaseLayout title={t('legal.title')} noindex={true}>
+  <LegalPage locale="es" />
+</BaseLayout>

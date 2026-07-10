@@ -1,0 +1,59 @@
+---
+import { useTranslations, type Locale } from '../i18n/utils';
+import Icon from './Icon.astro';
+
+interface Props {
+  locale: Locale;
+  dark?: boolean;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const offices = [
+  {
+    key: 'botarell',
+    query: 'Botarell, Tarragona, Spain',
+    maps: 'https://www.google.com/maps/search/?api=1&query=Botarell%2C+Tarragona',
+  },
+  {
+    key: 'vilassar',
+    query: 'Mercat de Flor i Planta Ornamental de Catalunya, Vilassar de Mar',
+    maps: 'https://www.google.com/maps/search/?api=1&query=Mercat+de+Flor+i+Planta+Ornamental+de+Catalunya%2C+Vilassar+de+Mar',
+  },
+];
+---
+<section class="bg-white py-20">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="max-w-2xl">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand-600">{t('locations.eyebrow')}</p>
+      <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl">{t('locations.title')}</h2>
+      <p class="mt-4 text-lg text-slate-600">{t('locations.subtitle')}</p>
+    </div>
+
+    <div class="mt-12 grid gap-8 lg:grid-cols-2">
+      {
+        offices.map((o) => (
+          <div class="reveal overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <iframe
+              title={t(`loc.${o.key}.name`)}
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(o.query)}&z=14&output=embed`}
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              class="h-64 w-full border-0"
+            />
+            <div class="p-6">
+              <span class="inline-flex items-center gap-1.5 rounded-full bg-brand-100 px-3 py-1 text-xs font-semibold text-brand-700">
+                <Icon name="tag" class="h-3.5 w-3.5" /> {t(`loc.${o.key}.tag`)}
+              </span>
+              <h3 class="mt-3 text-lg font-bold text-ink-900">{t(`loc.${o.key}.name`)}</h3>
+              <p class="mt-1 text-sm text-slate-600">{t(`loc.${o.key}.addr`)}</p>
+              <a href={o.maps} target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 transition hover:gap-2.5">
+                {t('locations.open')} <Icon name="external" class="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

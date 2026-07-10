@@ -1,0 +1,37 @@
+---
+import { useTranslations, type Locale } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const partners: { name: string; logo?: string }[] = [
+  { name: 'SIAM Cloud', logo: '/brand/siamcloud-mark.svg' },
+  { name: 'GestioERP', logo: '/brand/gestioerp-mark.svg' },
+  { name: 'IONNAVIS', logo: '/brand/ionnavis.svg' },
+  { name: 'Microsoft Dynamics 365 Business Central' },
+  { name: 'Slave Computers' },
+  { name: 'Reglament UE 2016/2031' },
+  { name: 'Pontsoft' },
+];
+const loop = [...partners, ...partners];
+---
+<section class="border-y border-slate-100 bg-slate-50/60 py-10">
+  <div class="mx-auto max-w-6xl px-4">
+    <p class="text-center text-xs font-bold uppercase tracking-widest text-brand-600">{t('partners.title')}</p>
+    <div class="marquee mt-6">
+      <div class="marquee__track gap-4 py-1">
+        {
+          loop.map((p) => (
+            <div class="flex shrink-0 items-center gap-2.5 rounded-full border border-slate-200 bg-white px-5 py-2.5 shadow-sm">
+              {p.logo && <img src={p.logo} alt="" width="24" height="24" class="h-6 w-6 rounded" loading="lazy" />}
+              <span class="whitespace-nowrap text-sm font-semibold text-slate-600">{p.name}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+---
+import { useTranslations, localizedPath, type Locale } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const cookiesUrl = localizedPath('cookies', locale);
+---
+<div id="cookie-consent" class="fixed inset-x-0 bottom-0 z-[95] hidden p-4 sm:p-5" aria-live="polite">
+  <div class="mx-auto flex max-w-4xl flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl sm:flex-row sm:items-center">
+    <p class="flex-1 text-sm leading-relaxed text-slate-600">
+      🍪 {t('cookies.banner.text')}
+      <a href={cookiesUrl} class="font-semibold text-brand-700 hover:underline">{t('cookies.banner.more')}</a>
+    </p>
+    <div class="flex shrink-0 gap-2">
+      <button type="button" data-cookie-action="reject" class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-50">
+        {t('cookies.banner.reject')}
+      </button>
+      <button type="button" data-cookie-action="accept" class="rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-700">
+        {t('cookies.banner.accept')}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    if (window.__cookieConsent) return;
+    window.__cookieConsent = true;
+    var KEY = 'cookie-consent';
+    function apply() {
+      var el = document.getElementById('cookie-consent');
+      if (!el) return;
+      var choice = null;
+      try { choice = localStorage.getItem(KEY); } catch (e) {}
+      if (choice) { el.classList.add('hidden'); return; }
+      el.classList.remove('hidden');
+    }
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest && e.target.closest('[data-cookie-action]');
+      if (!btn) return;
+      try { localStorage.setItem(KEY, btn.getAttribute('data-cookie-action')); } catch (e) {}
+      var el = document.getElementById('cookie-consent');
+      if (el) el.classList.add('hidden');
+    });
+    document.addEventListener('astro:page-load', apply);
+    if (document.readyState !== 'loading') apply();
+    else document.addEventListener('DOMContentLoaded', apply);
+  })();
+</script>

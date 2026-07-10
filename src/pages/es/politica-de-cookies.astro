@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CookiesPage from '../../components/pages/CookiesPage.astro';
+import { useTranslations } from '../../i18n/utils';
+const t = useTranslations('es');
+---
+<BaseLayout title={t('cookies.title')} noindex={true}>
+  <CookiesPage locale="es" />
+</BaseLayout>

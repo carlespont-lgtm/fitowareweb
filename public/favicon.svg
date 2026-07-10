@@ -1,0 +1,14 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fitoware">
+  <defs>
+    <linearGradient id="fav-leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a5d76e"/>
+      <stop offset="0.5" stop-color="#5fb04a"/>
+      <stop offset="1" stop-color="#2f7d32"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="11" fill="#f2f9ec"/>
+  <path d="M6 37 C 16 30, 32 30, 42 37 L42 40 C32 33 16 33 6 40 Z" fill="#2f7d32"/>
+  <rect x="21.5" y="21" width="5" height="13" rx="2.2" fill="#4ca346"/>
+  <rect x="7" y="7" width="15.5" height="15.5" rx="5" fill="url(#fav-leaf)"/>
+  <rect x="25.5" y="7" width="15.5" height="15.5" rx="5" fill="url(#fav-leaf)"/>
+</svg>

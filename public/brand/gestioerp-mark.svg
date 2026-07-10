@@ -1,0 +1,14 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GestioERP">
+  <defs>
+    <linearGradient id="ge-mk" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34d39e"/>
+      <stop offset="0.55" stop-color="#16bd95"/>
+      <stop offset="1" stop-color="#0c7d68"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="13" fill="url(#ge-mk)"/>
+  <path d="M0 13 A13 13 0 0 1 13 0 H35 A13 13 0 0 1 48 13 V20 H0 Z" fill="#ffffff" opacity="0.12"/>
+  <path d="M12 31 L20 23 L26 28 L36 17" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M30.5 17 H36 V22.5" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="12" cy="31" r="2.4" fill="#ffffff"/>
+</svg>

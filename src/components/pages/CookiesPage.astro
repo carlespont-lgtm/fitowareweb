@@ -1,0 +1,31 @@
+---
+import { useTranslations, type Locale } from '../../i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const blocks = [
+  { h: 'cookies.h1', p: 'cookies.p1' },
+  { h: 'cookies.h2', p: 'cookies.p2' },
+  { h: 'cookies.h3', p: 'cookies.p3' },
+  { h: 'cookies.h4', p: 'cookies.p4' },
+];
+---
+<section class="bg-white py-16 sm:py-20">
+  <div class="mx-auto max-w-3xl px-4">
+    <h1 class="text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl">{t('cookies.title')}</h1>
+    <p class="mt-4 text-lg text-slate-600">{t('cookies.intro')}</p>
+    <div class="mt-10 space-y-10">
+      {
+        blocks.map((b) => (
+          <div>
+            <h2 class="text-lg font-bold text-ink-900">{t(b.h)}</h2>
+            <p class="mt-2 leading-relaxed text-slate-600">{t(b.p)}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

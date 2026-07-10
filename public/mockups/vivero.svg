@@ -1,0 +1,118 @@
+<svg viewBox="0 0 560 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vivero de plantas ornamentales">
+  <defs>
+    <linearGradient id="v-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eafaf0"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <linearGradient id="v-leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a5d76e"/>
+      <stop offset="1" stop-color="#2f7d32"/>
+    </linearGradient>
+    <linearGradient id="v-leaf2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6ee7b9"/>
+      <stop offset="1" stop-color="#16bd95"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="560" height="460" rx="24" fill="url(#v-sky)"/>
+
+  <!-- estructura del invernadero -->
+  <g stroke="#cfe9d8" stroke-width="3" fill="none" opacity="0.9">
+    <path d="M40 120 L280 40 L520 120"/>
+    <line x1="40" y1="120" x2="40" y2="360"/>
+    <line x1="520" y1="120" x2="520" y2="360"/>
+    <line x1="280" y1="40" x2="280" y2="120"/>
+    <line x1="160" y1="80" x2="160" y2="120"/>
+    <line x1="400" y1="80" x2="400" y2="120"/>
+  </g>
+
+  <!-- sol -->
+  <circle cx="470" cy="90" r="26" fill="#bef264" opacity="0.7"/>
+
+  <!-- banco / mesa de cultivo (fila trasera) -->
+  <rect x="70" y="250" width="420" height="14" rx="4" fill="#e2d3c4"/>
+  <rect x="90" y="264" width="10" height="40" fill="#cbb8a6"/>
+  <rect x="460" y="264" width="10" height="40" fill="#cbb8a6"/>
+
+  <!-- macetas fila trasera -->
+  <g>
+    <!-- planta 1 -->
+    <g transform="translate(110,196)">
+      <path d="M20 40 C 6 30 4 12 16 4 C 20 18 26 28 28 44" fill="url(#v-leaf)"/>
+      <path d="M28 44 C 40 28 56 24 64 30 C 52 40 42 48 34 54" fill="url(#v-leaf2)"/>
+      <path d="M24 54 C 24 40 30 30 34 22" stroke="#2f7d32" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M22 54 h20 l-4 20 h-12 Z" fill="#e07a53"/>
+    </g>
+    <!-- planta 2 -->
+    <g transform="translate(210,188)">
+      <ellipse cx="24" cy="34" rx="22" ry="26" fill="url(#v-leaf2)"/>
+      <ellipse cx="24" cy="30" rx="12" ry="16" fill="url(#v-leaf)"/>
+      <path d="M14 60 h28 l-5 22 h-18 Z" fill="#d96f4a"/>
+    </g>
+    <!-- planta 3 (flor) -->
+    <g transform="translate(300,190)">
+      <path d="M26 56 V28" stroke="#2f7d32" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="26" cy="20" r="12" fill="#f9a8d4"/>
+      <circle cx="26" cy="20" r="5" fill="#fde68a"/>
+      <path d="M8 40 C 16 34 22 40 24 48" fill="url(#v-leaf)"/>
+      <path d="M44 40 C 36 34 30 40 28 48" fill="url(#v-leaf)"/>
+      <path d="M14 56 h26 l-5 22 h-16 Z" fill="#e07a53"/>
+    </g>
+    <!-- planta 4 -->
+    <g transform="translate(390,196)">
+      <path d="M24 48 C 10 40 8 20 22 12 C 26 26 28 38 30 50" fill="url(#v-leaf)"/>
+      <path d="M30 50 C 42 34 56 32 62 38 C 50 46 40 52 34 58" fill="url(#v-leaf2)"/>
+      <path d="M20 54 h24 l-4 20 h-16 Z" fill="#d96f4a"/>
+    </g>
+  </g>
+
+  <!-- banco delantero -->
+  <rect x="40" y="360" width="480" height="16" rx="4" fill="#d8c6b5"/>
+  <rect x="70" y="376" width="12" height="48" fill="#bfa48f"/>
+  <rect x="478" y="376" width="12" height="48" fill="#bfa48f"/>
+
+  <!-- macetas fila delantera (más grandes) -->
+  <g>
+    <g transform="translate(90,300)">
+      <ellipse cx="30" cy="34" rx="30" ry="34" fill="url(#v-leaf)"/>
+      <ellipse cx="30" cy="30" rx="16" ry="20" fill="url(#v-leaf2)"/>
+      <path d="M14 66 h32 l-6 26 h-20 Z" fill="#e07a53"/>
+    </g>
+    <g transform="translate(200,290)">
+      <path d="M32 66 V26" stroke="#2f7d32" stroke-width="4" stroke-linecap="round"/>
+      <path d="M8 44 C 20 34 30 42 32 54" fill="url(#v-leaf)"/>
+      <path d="M56 44 C 44 34 34 42 32 54" fill="url(#v-leaf2)"/>
+      <path d="M14 24 C 26 16 34 24 34 36" fill="url(#v-leaf2)"/>
+      <path d="M16 66 h34 l-6 26 h-22 Z" fill="#d96f4a"/>
+    </g>
+    <g transform="translate(320,296)">
+      <path d="M34 60 V26" stroke="#2f7d32" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="34" cy="18" r="14" fill="#c084fc"/>
+      <circle cx="34" cy="18" r="6" fill="#fde68a"/>
+      <path d="M10 46 C 20 40 28 46 30 54" fill="url(#v-leaf)"/>
+      <path d="M58 46 C 48 40 40 46 38 54" fill="url(#v-leaf)"/>
+      <path d="M16 60 h36 l-6 26 h-24 Z" fill="#e07a53"/>
+    </g>
+    <g transform="translate(430,302)">
+      <ellipse cx="28" cy="30" rx="28" ry="30" fill="url(#v-leaf2)"/>
+      <ellipse cx="28" cy="26" rx="14" ry="18" fill="url(#v-leaf)"/>
+      <path d="M12 58 h32 l-6 26 h-20 Z" fill="#d96f4a"/>
+    </g>
+  </g>
+
+  <!-- etiqueta pasaporte flotante -->
+  <g transform="translate(360,140)">
+    <rect x="0" y="0" width="150" height="80" rx="10" fill="#ffffff" stroke="#d0fbe7" stroke-width="2"/>
+    <rect x="0" y="0" width="150" height="20" rx="10" fill="#16bd95"/>
+    <rect x="0" y="10" width="150" height="10" fill="#16bd95"/>
+    <text x="10" y="14" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#ffffff">PASAPORTE FITOSANITARIO UE</text>
+    <text x="10" y="38" font-family="Arial, sans-serif" font-size="9" fill="#0c2a47">A · Ficus benjamina</text>
+    <text x="10" y="52" font-family="Arial, sans-serif" font-size="9" fill="#0c2a47">B · ES-0809 · C · L-2026</text>
+    <text x="10" y="66" font-family="Arial, sans-serif" font-size="9" fill="#0c2a47">D · ES</text>
+    <rect x="118" y="30" width="26" height="26" rx="3" fill="#0c2a47"/>
+    <g fill="#ffffff">
+      <rect x="122" y="34" width="5" height="5"/><rect x="135" y="34" width="5" height="5"/>
+      <rect x="122" y="47" width="5" height="5"/><rect x="129" y="41" width="4" height="4"/><rect x="135" y="47" width="5" height="5"/>
+    </g>
+  </g>
+</svg>

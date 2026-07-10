@@ -1,0 +1,134 @@
+---
+import { useTranslations, localizedPath, localePrefix, type Locale } from '../i18n/utils';
+import LangSwitcher from './LangSwitcher.astro';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const home = localePrefix(locale) || '/';
+
+const links = [
+  { href: home, label: t('nav.home') },
+  { href: localizedPath('features', locale), label: t('nav.features') },
+  { href: localizedPath('editions', locale), label: t('nav.editions') },
+  { href: localizedPath('contact', locale), label: t('nav.contact') },
+];
+---
+<header class="sticky top-0 z-50 border-b border-slate-100 bg-white/90 backdrop-blur">
+  <nav class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
+    <a href={home} class="shrink-0" aria-label="Fitoware">
+      <Logo size="lg" />
+    </a>
+
+    <ul class="hidden items-center gap-1 lg:flex">
+      {
+        links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class="rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-brand-700"
+            >
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <LangSwitcher locale={locale} />
+      <a
+        href={localizedPath('support', locale)}
+        class="hidden items-center gap-1.5 rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-600 sm:inline-flex"
+      >
+        <Icon name="headset" class="h-4 w-4" />
+        {t('nav.support')}
+      </a>
+      <a
+        href={localizedPath('contact', locale)}
+        class="hidden items-center gap-1.5 rounded-lg bg-ink-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-ink-800 lg:inline-flex"
+      >
+        {t('nav.demo')} →
+      </a>
+
+      <button
+        id="menu-btn"
+        type="button"
+        class="grid h-10 w-10 place-items-center rounded-lg text-slate-700 transition hover:bg-slate-100 lg:hidden"
+        aria-label="Menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <Icon name="menu" class="menu-open h-6 w-6" />
+        <Icon name="x" class="menu-close hidden h-6 w-6" />
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="hidden border-t border-slate-100 bg-white lg:hidden">
+    <ul class="mx-auto max-w-6xl space-y-1 px-4 py-3">
+      {
+        links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class="block rounded-lg px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-50 hover:text-brand-700"
+            >
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="flex gap-2 pt-2">
+        <a
+          href={localizedPath('support', locale)}
+          class="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white"
+        >
+          <Icon name="headset" class="h-4 w-4" />
+          {t('nav.support')}
+        </a>
+        <a
+          href={localizedPath('contact', locale)}
+          class="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-ink-900 px-4 py-2.5 text-sm font-semibold text-white"
+        >
+          {t('nav.demo')} →
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    function initMenu() {
+      var btn = document.getElementById('menu-btn');
+      var menu = document.getElementById('mobile-menu');
+      if (!btn || !menu || btn.dataset.bound) return;
+      btn.dataset.bound = '1';
+      function setOpen(open) {
+        menu.classList.toggle('hidden', !open);
+        btn.setAttribute('aria-expanded', String(open));
+        var o = btn.querySelector('.menu-open');
+        var c = btn.querySelector('.menu-close');
+        if (o) o.classList.toggle('hidden', open);
+        if (c) c.classList.toggle('hidden', !open);
+      }
+      btn.addEventListener('click', function () {
+        setOpen(menu.classList.contains('hidden'));
+      });
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { setOpen(false); });
+      });
+      window.addEventListener('resize', function () {
+        if (window.innerWidth >= 1024) setOpen(false);
+      });
+    }
+    document.addEventListener('astro:page-load', initMenu);
+    if (document.readyState !== 'loading') initMenu();
+    else document.addEventListener('DOMContentLoaded', initMenu);
+  })();
+</script>

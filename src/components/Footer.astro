@@ -1,0 +1,56 @@
+---
+import { useTranslations, localizedPath, localePrefix, type Locale } from '../i18n/utils';
+import Logo from './Logo.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const home = localePrefix(locale) || '/';
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-slate-100 bg-slate-50">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="sm:col-span-2 lg:col-span-1">
+      <Logo />
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-slate-500">{t('footer.tagline')}</p>
+    </div>
+
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide text-slate-800">{t('footer.product')}</p>
+      <ul class="mt-4 space-y-2.5 text-sm text-slate-600">
+        <li><a class="transition hover:text-brand-700" href={localizedPath('features', locale)}>{t('nav.features')}</a></li>
+        <li><a class="transition hover:text-brand-700" href={localizedPath('editions', locale)}>{t('nav.editions')}</a></li>
+        <li><a class="transition hover:text-brand-700" href={localizedPath('support', locale)}>{t('support.eyebrow')}</a></li>
+        <li><a class="transition hover:text-brand-700" href={localizedPath('contact', locale)}>{t('nav.demo')}</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide text-slate-800">{t('footer.company')}</p>
+      <ul class="mt-4 space-y-2.5 text-sm text-slate-600">
+        <li><a class="transition hover:text-brand-700" href={localizedPath('contact', locale)}>{t('nav.contact')}</a></li>
+        <li><a class="transition hover:text-brand-700" href={localizedPath('legal', locale)}>{t('nav.legal')}</a></li>
+        <li><a class="transition hover:text-brand-700" href={localizedPath('cookies', locale)}>{t('cookies.title')}</a></li>
+        <li><a class="inline-flex items-center gap-1 transition hover:text-brand-700" href="https://slave.net" target="_blank" rel="noopener">slave.net ↗</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide text-slate-800">{t('footer.group')}</p>
+      <ul class="mt-4 space-y-2.5 text-sm text-slate-600">
+        <li><a class="inline-flex items-center gap-1 transition hover:text-brand-700" href="https://siamcloud.es" target="_blank" rel="noopener">SIAM Cloud ↗</a></li>
+        <li><a class="inline-flex items-center gap-1 transition hover:text-brand-700" href="https://gestioerp.com" target="_blank" rel="noopener">GestioERP ↗</a></li>
+        <li><a class="inline-flex items-center gap-1 transition hover:text-brand-700" href="https://www.ionnavis.com" target="_blank" rel="noopener">IONNAVIS ↗</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-slate-200">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-6 text-sm text-slate-500 sm:flex-row">
+      <p>© {year} {t('footer.legalname')} · {t('footer.rights')}</p>
+      <p>Fitoware — {t('site.tagline')}</p>
+    </div>
+  </div>
+</footer>

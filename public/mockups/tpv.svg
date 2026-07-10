@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="760" height="480" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" role="img" aria-label="TPV · punto de venta">
+<defs><filter id="sh" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#0a5e4b" flood-opacity="0.18"/></filter></defs>
+<rect width="760" height="480" fill="#ecfdf5"/>
+<rect x="40" y="28" width="680" height="424" rx="16" fill="#ffffff" stroke="#d8e0e6" filter="url(#sh)"/>
+<path d="M40 44 a16 16 0 0 1 16 -16 h648 a16 16 0 0 1 16 16 v26 h-680 z" fill="#0d9e80"/>
+<circle cx="64" cy="44" r="5" fill="#ffffff" opacity="0.85"/>
+<circle cx="82" cy="44" r="5" fill="#ffffff" opacity="0.6"/>
+<circle cx="100" cy="44" r="5" fill="#ffffff" opacity="0.45"/>
+<text x="380" y="49" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="600">TPV · punto de venta</text>
+<rect x="60" y="90" width="200" height="62" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-opacity="0.25"/>
+<rect x="60" y="90" width="5" height="62" rx="2.5" fill="#2563eb"/>
+<text x="78" y="112" fill="#64748b" font-size="10.5">Ventas hoy</text>
+<text x="78" y="134" fill="#1e3a8a" font-size="18" font-weight="800">1.240 €</text>
+<rect x="280" y="90" width="200" height="62" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-opacity="0.25"/>
+<rect x="280" y="90" width="5" height="62" rx="2.5" fill="#7c3aed"/>
+<text x="298" y="112" fill="#64748b" font-size="10.5">Tiquets</text>
+<text x="298" y="134" fill="#5b21b6" font-size="18" font-weight="800">86</text>
+<rect x="500" y="90" width="200" height="62" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-opacity="0.25"/>
+<rect x="500" y="90" width="5" height="62" rx="2.5" fill="#ea580c"/>
+<text x="518" y="112" fill="#64748b" font-size="10.5">Caja</text>
+<text x="518" y="134" fill="#9a3412" font-size="18" font-weight="800">abierta</text>
+<rect x="60" y="178" width="640" height="244" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+<g transform="translate(380,300)">
+<rect x="-288" y="-92" width="84" height="68" rx="9" fill="#dbeafe" stroke="#cbd5e1" stroke-opacity="0.5"/>
+<text x="-276" y="-65" fill="#334155" font-size="11" font-weight="700">Cafè</text>
+<text x="-276" y="-42" fill="#0f172a" font-size="13" font-weight="800">1,20 €</text>
+<rect x="-196" y="-92" width="84" height="68" rx="9" fill="#dcfce7" stroke="#cbd5e1" stroke-opacity="0.5"/>
+<text x="-184" y="-65" fill="#334155" font-size="11" font-weight="700">Menú</text>
+<text x="-184" y="-42" fill="#0f172a" font-size="13" font-weight="800">12,00 €</text>
+<rect x="-104" y="-92" width="84" height="68" rx="9" fill="#fef3c7" stroke="#cbd5e1" stroke-opacity="0.5"/>
+<text x="-92" y="-65" fill="#334155" font-size="11" font-weight="700">Canya</text>
+<text x="-92" y="-42" fill="#0f172a" font-size="13" font-weight="800">2,20 €</text>
+<rect x="-288" y="-16" width="84" height="68" rx="9" fill="#fce7f3" stroke="#cbd5e1" stroke-opacity="0.5"/>
+<text x="-276" y="11" fill="#334155" font-size="11" font-weight="700">Aigua</text>
+<text x="-276" y="34" fill="#0f172a" font-size="13" font-weight="800">1,00 €</text>
+<rect x="-196" y="-16" width="84" height="68" rx="9" fill="#e0e7ff" stroke="#cbd5e1" stroke-opacity="0.5"/>
+<text x="-184" y="11" fill="#334155" font-size="11" font-weight="700">Tapa</text>
+<text x="-184" y="34" fill="#0f172a" font-size="13" font-weight="800">3,50 €</text>
+<rect x="-104" y="-16" width="84" height="68" rx="9" fill="#cffafe" stroke="#cbd5e1" stroke-opacity="0.5"/>
+<text x="-92" y="11" fill="#334155" font-size="11" font-weight="700">Postres</text>
+<text x="-92" y="34" fill="#0f172a" font-size="13" font-weight="800">2,80 €</text>
+<rect x="116" y="-92" width="172" height="192" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="132" y="-70" fill="#0f172a" font-size="12" font-weight="800">Tiquet</text>
+<text x="132" y="-46" fill="#475569" font-size="11">Menú</text>
+<text x="272" y="-46" text-anchor="end" fill="#0f172a" font-size="11" font-weight="700">12,00 €</text>
+<text x="132" y="-22" fill="#475569" font-size="11">Canya x2</text>
+<text x="272" y="-22" text-anchor="end" fill="#0f172a" font-size="11" font-weight="700">4,40 €</text>
+<text x="132" y="2" fill="#475569" font-size="11">Cafè</text>
+<text x="272" y="2" text-anchor="end" fill="#0f172a" font-size="11" font-weight="700">1,20 €</text>
+<line x1="132" y1="36" x2="272" y2="36" stroke="#e2e8f0"/>
+<text x="132" y="58" fill="#0f172a" font-size="12" font-weight="800">TOTAL</text>
+<text x="272" y="58" text-anchor="end" fill="#0d9e80" font-size="15" font-weight="800">17,60 €</text>
+<rect x="132" y="70" width="140" height="26" rx="8" fill="#0d9e80"/>
+<text x="202" y="88" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700">COBRAR</text>
+</g>
+<rect x="60" y="404" width="640" height="40" fill="#ecfdf5"/>
+<text x="78" y="429" fill="#0a5e4b" font-size="12" font-weight="700">Cobro rápido: efectivo, tarjeta y contactless</text>
+<text x="684" y="429" text-anchor="end" fill="#0a5e4b" font-size="14" font-weight="800">TPV</text>
+</svg>

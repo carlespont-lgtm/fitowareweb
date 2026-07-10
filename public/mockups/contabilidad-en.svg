@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="760" height="480" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" role="img" aria-label="Pantalla de un asiento contable cuadrado">
+  <defs>
+    <filter id="sh" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#0e6354" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect width="760" height="480" fill="#ecfdf5"/>
+  <rect x="40" y="28" width="680" height="424" rx="16" fill="#ffffff" stroke="#d8e0e6" filter="url(#sh)"/>
+  <path d="M40 44 a16 16 0 0 1 16 -16 h648 a16 16 0 0 1 16 16 v26 h-680 z" fill="#0d9e80"/>
+  <circle cx="64" cy="44" r="5" fill="#ffffff" opacity="0.85"/>
+  <circle cx="82" cy="44" r="5" fill="#ffffff" opacity="0.6"/>
+  <circle cx="100" cy="44" r="5" fill="#ffffff" opacity="0.45"/>
+  <text x="380" y="49" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="600">Accounting · Journal entry 2026/118</text>
+
+  <!-- cabecera -->
+  <text x="60" y="100" fill="#0f172a" font-size="14" font-weight="700">Goods purchase — Demo Supplier</text>
+  <text x="688" y="100" text-anchor="end" fill="#64748b" font-size="11.5">Fecha: 12/06/2026 · Ejercicio 2026</text>
+
+  <!-- tabla cabecera -->
+  <rect x="60" y="124" width="628" height="28" rx="6" fill="#f1f5f9"/>
+  <text x="74" y="142" fill="#475569" font-size="10.5" font-weight="600">SUBACCOUNT</text>
+  <text x="200" y="142" fill="#475569" font-size="10.5" font-weight="600">ITEM</text>
+  <text x="560" y="142" fill="#475569" font-size="10.5" font-weight="600" text-anchor="end">DEBIT</text>
+  <text x="676" y="142" fill="#475569" font-size="10.5" font-weight="600" text-anchor="end">CREDIT</text>
+
+  <g font-size="11.5" fill="#334155">
+    <text x="74" y="172" font-weight="600">600000</text>
+    <text x="200" y="172">Goods purchases</text>
+    <text x="560" y="172" text-anchor="end" fill="#0c7d68" font-weight="600">1.000,00</text>
+    <text x="676" y="172" text-anchor="end" fill="#cbd5e1">—</text>
+    <line x1="60" y1="184" x2="688" y2="184" stroke="#eef2f6"/>
+
+    <text x="74" y="206" font-weight="600">472000</text>
+    <text x="200" y="206">Input VAT 21%</text>
+    <text x="560" y="206" text-anchor="end" fill="#0c7d68" font-weight="600">210,00</text>
+    <text x="676" y="206" text-anchor="end" fill="#cbd5e1">—</text>
+    <line x1="60" y1="218" x2="688" y2="218" stroke="#eef2f6"/>
+
+    <text x="74" y="240" font-weight="600">400000</text>
+    <text x="200" y="240">Suppliers</text>
+    <text x="560" y="240" text-anchor="end" fill="#cbd5e1">—</text>
+    <text x="676" y="240" text-anchor="end" fill="#b45309" font-weight="600">1.210,00</text>
+  </g>
+
+  <!-- + añadir partida -->
+  <text x="74" y="270" fill="#0d9e80" font-size="11.5" font-weight="700">+ Add item</text>
+
+  <!-- totales debe/haber + cuadrado -->
+  <rect x="60" y="292" width="628" height="56" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="84" y="318" fill="#64748b" font-size="11">Total debit</text>
+  <text x="84" y="338" fill="#0f172a" font-size="15" font-weight="800">1.210,00 €</text>
+  <text x="300" y="318" fill="#64748b" font-size="11">Total credit</text>
+  <text x="300" y="338" fill="#0f172a" font-size="15" font-weight="800">1.210,00 €</text>
+  <rect x="520" y="306" width="148" height="30" rx="15" fill="#d0fbe7"/>
+  <path d="M540 321 l5 5 l9 -10" fill="none" stroke="#0c7d68" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="600" y="325" text-anchor="middle" fill="#0c7d68" font-size="12.5" font-weight="700">Balanced entry</text>
+
+  <!-- botones -->
+  <rect x="60" y="364" width="150" height="34" rx="8" fill="#ffffff" stroke="#0d9e80"/>
+  <text x="135" y="386" text-anchor="middle" fill="#0d9e80" font-size="12.5" font-weight="700">Libro diario</text>
+  <rect x="540" y="364" width="148" height="34" rx="8" fill="#0d9e80"/>
+  <path d="M558 381 l5 5 l9 -10" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="616" y="386" text-anchor="middle" fill="#ffffff" font-size="12.5" font-weight="700">Save entry</text>
+</svg>

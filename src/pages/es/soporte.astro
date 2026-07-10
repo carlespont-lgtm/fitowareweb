@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SupportPage from '../../components/pages/SupportPage.astro';
+import { useTranslations } from '../../i18n/utils';
+const t = useTranslations('es');
+---
+<BaseLayout title={t('support.eyebrow')} description={t('support.desc')}>
+  <SupportPage locale="es" />
+</BaseLayout>
