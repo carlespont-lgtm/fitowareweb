@@ -12,12 +12,15 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  image?: string;
   alternates?: Partial<Record<Locale, string>>;
 }
-const { title, description, noindex, alternates } = Astro.props;
+const { title, description, noindex, image, alternates } = Astro.props;
 const locale: Locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const altPath = (l: Locale): string => alternates?.[l] ?? getAlternatePath(Astro.url, l);
+const ogImage = new URL(image ?? '/photos/invernadero-hileras.png', Astro.site).href;
+const ogLocaleAlt: Record<Locale, string> = { ca: 'ca_ES', es: 'es_ES', en: 'en_US' };
 
 const pageTitle = title ? `${title} · ${t('site.name')}` : `${t('site.name')} — ${t('site.tagline')}`;
 const pageDesc = description ?? t('site.desc');
@@ -62,6 +65,15 @@ const orgSchema = {
     <meta property="og:site_name" content="Fitoware" />
     <meta property="og:url" content={canonical.href} />
     <meta property="og:locale" content={ogLocaleMap[locale]} />
+    {(['ca', 'es', 'en'] as Locale[]).filter((l) => l !== locale).map((l) => (
+      <meta property="og:locale:alternate" content={ogLocaleAlt[l]} />
+    ))}
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={pageTitle} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDesc} />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="generator" content={Astro.generator} />
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
     <ClientRouter />
