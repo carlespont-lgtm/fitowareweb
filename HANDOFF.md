@@ -1,5 +1,10 @@
 # Fitoware — Web de producto · Guía de traspaso
 
+> **Este documento es de la web de Fitoware** (proyecto **Fitoware web**).
+> - Carpeta del proyecto: `E:\ServBay\www\fitoware web`
+> - Repositorio: https://github.com/carlespont-lgtm/fitowareweb (rama `main`)
+> - Dominio: https://fitoware.com
+
 Documento para retomar el proyecto. Última actualización: 2026-07-11.
 
 ---
