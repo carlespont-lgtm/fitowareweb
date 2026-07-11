@@ -1,6 +1,6 @@
 ---
 import { useTranslations, localizedPath, type Locale } from '../../i18n/utils';
-import { featurePath } from '../../i18n/features';
+import { featureList, featurePath, featureMockup } from '../../i18n/features';
 import Icon from '../Icon.astro';
 
 interface Props {
@@ -9,14 +9,6 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
-const features = [
-  { k: 'species', icon: 'sprout', grad: ['#a3e635', '#4d7c0f'] },
-  { k: 'passport', icon: 'qr', grad: ['#60a5fa', '#1d4ed8'] },
-  { k: 'traceability', icon: 'layers', grad: ['#c084fc', '#7c3aed'] },
-  { k: 'labels', icon: 'tag', grad: ['#fbbf24', '#d97706'] },
-  { k: 'pz', icon: 'shield', grad: ['#f87171', '#b91c1c'] },
-  { k: 'duplicate', icon: 'printer', grad: ['#22d3ee', '#0e7490'] },
-];
 const steps = ['s1', 's2', 's3'];
 const mock = (base: string) => `/mockups/${base}${locale === 'ca' ? '-ca' : locale === 'en' ? '-en' : ''}.svg`;
 ---
@@ -34,16 +26,28 @@ const mock = (base: string) => `/mockups/${base}${locale === 'ca' ? '-ca' : loca
   <div class="mx-auto max-w-6xl px-4">
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {
-        features.map((f) => (
-          <a href={featurePath(f.k, locale)} class="reveal group flex flex-col rounded-2xl border border-slate-100 bg-slate-50/60 p-7 transition hover:-translate-y-1 hover:border-brand-200 hover:bg-white hover:shadow-md">
-            <span class="grid h-12 w-12 place-items-center rounded-xl text-white shadow-sm" style={`background:linear-gradient(135deg, ${f.grad[0]}, ${f.grad[1]})`}>
-              <Icon name={f.icon} class="h-6 w-6" />
-            </span>
-            <h3 class="mt-5 text-lg font-bold text-ink-900 group-hover:text-brand-700">{t(`feat.${f.k}.t`)}</h3>
-            <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{t(`feat.${f.k}.d`)}</p>
-            <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600">
-              {t('fdet.see')} <Icon name="arrow" class="h-4 w-4 transition group-hover:translate-x-0.5" />
-            </span>
+        featureList.map((f) => (
+          <a href={featurePath(f.key, locale)} class="reveal-blur group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-xl">
+            <div class="relative aspect-[16/10] overflow-hidden border-b border-slate-100 bg-slate-50">
+              <img
+                src={featureMockup(f, locale)}
+                alt={t(`feat.${f.key}.t`)}
+                width="760"
+                height="480"
+                loading="lazy"
+                class="h-full w-full object-cover object-left-top transition duration-500 group-hover:scale-[1.04]"
+              />
+              <span class="absolute left-3 top-3 grid h-10 w-10 place-items-center rounded-xl text-white shadow-md ring-2 ring-white/70" style={`background:linear-gradient(135deg, ${f.grad[0]}, ${f.grad[1]})`}>
+                <Icon name={f.icon} class="h-5 w-5" />
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="text-lg font-bold text-ink-900 group-hover:text-brand-700">{t(`feat.${f.key}.t`)}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{t(`feat.${f.key}.d`)}</p>
+              <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600">
+                {t('fdet.see')} <Icon name="arrow" class="h-4 w-4 transition group-hover:translate-x-0.5" />
+              </span>
+            </div>
           </a>
         ))
       }

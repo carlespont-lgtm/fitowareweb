@@ -1,7 +1,7 @@
 ---
 import { useTranslations, localizedPath, type Locale } from '../../i18n/utils';
 import { editionList, editionPath, editionMockup } from '../../i18n/editions';
-import { operationPath, operationsByCategory, opCategories } from '../../i18n/operations';
+import { operationPath, operationsByCategory, opCategories, operationImage } from '../../i18n/operations';
 import Icon from '../Icon.astro';
 
 interface Props {
@@ -124,15 +124,27 @@ const photos = ['invernadero-hileras', 'invernadero-riego', 'invernadero-flor', 
             </h3>
             <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {operationsByCategory(cat).map((o) => (
-                <a href={operationPath(o.key, locale)} class="group flex flex-col rounded-2xl border border-slate-100 bg-slate-50/60 p-6 transition hover:-translate-y-1 hover:border-brand-200 hover:bg-white hover:shadow-md">
-                  <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700">
-                    <Icon name={o.icon} class="h-5 w-5" />
-                  </span>
-                  <h4 class="mt-4 text-base font-bold text-ink-900 group-hover:text-brand-700">{t(`ops.${o.key}.title`)}</h4>
-                  <p class="mt-1 flex-1 text-sm leading-relaxed text-slate-600">{t(`ops.${o.key}.sub`)}</p>
-                  <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600">
-                    {t('fdet.see')} <Icon name="arrow" class="h-4 w-4 transition group-hover:translate-x-0.5" />
-                  </span>
+                <a href={operationPath(o.key, locale)} class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-xl">
+                  <div class="relative aspect-[16/10] overflow-hidden border-b border-slate-100 bg-slate-50">
+                    <img
+                      src={operationImage(o, locale)}
+                      alt={t(`ops.${o.key}.title`)}
+                      width="760"
+                      height="480"
+                      loading="lazy"
+                      class="h-full w-full object-cover object-left-top transition duration-500 group-hover:scale-[1.04]"
+                    />
+                    <span class="absolute left-3 top-3 grid h-10 w-10 place-items-center rounded-xl bg-brand-600 text-white shadow-md ring-2 ring-white/70">
+                      <Icon name={o.icon} class="h-5 w-5" />
+                    </span>
+                  </div>
+                  <div class="flex flex-1 flex-col p-6">
+                    <h4 class="text-base font-bold text-ink-900 group-hover:text-brand-700">{t(`ops.${o.key}.title`)}</h4>
+                    <p class="mt-1 flex-1 text-sm leading-relaxed text-slate-600">{t(`ops.${o.key}.sub`)}</p>
+                    <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600">
+                      {t('fdet.see')} <Icon name="arrow" class="h-4 w-4 transition group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
                 </a>
               ))}
             </div>

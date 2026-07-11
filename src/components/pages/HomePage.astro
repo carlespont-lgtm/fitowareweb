@@ -29,21 +29,50 @@ const features = [
 const steps = ['s1', 's2', 's3'];
 
 const ecoMockup = `/mockups/operaciones-iso${locale === 'ca' ? '-ca' : locale === 'en' ? '-en' : ''}.svg`;
+
+// Vídeos de fondo del héroe (copias locales con licencia). Se alterna entre ellos
+// aleatoriamente en cada visita, para variar. Solo se carga el elegido.
+const heroVideos = [
+  { src: '/videos/hero-1.mp4', poster: '/videos/hero-1.jpg' },
+  { src: '/videos/hero-2.mp4', poster: '/videos/hero-2.jpg' },
+];
+const heroMain = heroVideos[0];
+const heroAlt = heroVideos[1];
 ---
 <!-- HERO -->
-<section class="relative overflow-hidden bg-gradient-to-br from-ink-950 via-ink-900 to-brand-800">
-  <div class="fito-dots absolute inset-0 opacity-60"></div>
-  <div class="pointer-events-none absolute -right-32 -top-40 h-[28rem] w-[28rem] rounded-full bg-leaf-400/20 blur-3xl"></div>
-  <div class="pointer-events-none absolute -bottom-40 -left-32 h-[28rem] w-[28rem] rounded-full bg-brand-400/20 blur-3xl"></div>
+<section class="relative isolate overflow-hidden bg-gradient-to-br from-ink-950 via-ink-900 to-brand-800">
+  <video
+    class="hero-video absolute inset-0 -z-10 h-full w-full object-cover"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster={heroMain.poster}
+    data-alt={`${heroAlt.src}|${heroAlt.poster}`}
+    aria-hidden="true"
+  >
+    <source src={heroMain.src} type="video/mp4" />
+  </video>
+  <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-ink-950/85 via-ink-900/72 to-brand-800/72"></div>
+  <div class="fito-dots pointer-events-none absolute inset-0 -z-10 opacity-40"></div>
+  <div class="pointer-events-none absolute -right-32 -top-40 -z-10 h-[28rem] w-[28rem] rounded-full bg-leaf-400/20 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-40 -left-32 -z-10 h-[28rem] w-[28rem] rounded-full bg-brand-400/20 blur-3xl"></div>
 
   <div class="relative mx-auto max-w-6xl px-4 py-20 sm:py-24">
     <div class="grid items-center gap-12 lg:grid-cols-2">
       <div class="max-w-2xl">
         <div class="flex flex-col items-start gap-3">
-          <span class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-sm font-semibold text-white backdrop-blur">
+          <a
+            href="https://siamcloud.es"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-sm font-semibold text-white backdrop-blur transition hover:border-white/40 hover:bg-white/20"
+          >
             <img src="/brand/siamcloud-mark.svg" alt="SIAM Cloud" width="20" height="20" class="h-5 w-5 rounded" />
             {t('hero.siamproduct')}
-          </span>
+            <Icon name="external" class="h-3.5 w-3.5 text-white/70" />
+          </a>
           <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-sm font-medium text-white backdrop-blur">
             <Icon name="leaf" class="h-4 w-4 text-leaf-300" />
             {t('hero.badge')}
@@ -337,3 +366,27 @@ const ecoMockup = `/mockups/operaciones-iso${locale === 'ca' ? '-ca' : locale ==
     </a>
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    function pickHeroVideo() {
+      var v = document.querySelector('.hero-video');
+      if (!v || v.dataset.picked) return;
+      v.dataset.picked = '1';
+      // 50% de las veces usa el vídeo alternativo, para variar
+      var alt = (v.getAttribute('data-alt') || '').split('|');
+      if (alt[0] && Math.random() < 0.5) {
+        var s = v.querySelector('source');
+        if (s) s.setAttribute('src', alt[0]);
+        if (alt[1]) v.setAttribute('poster', alt[1]);
+      }
+      // con preload="none", cargamos solo el elegido y arrancamos
+      v.load();
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+    document.addEventListener('astro:page-load', pickHeroVideo);
+    if (document.readyState !== 'loading') pickHeroVideo();
+    else document.addEventListener('DOMContentLoaded', pickHeroVideo);
+  })();
+</script>

@@ -126,6 +126,12 @@ body {
   .marquee { overflow-x: auto; }
 }
 
+/* Vídeo de fons del héroe: amagar-lo si l'usuari prefereix menys moviment
+   (queda el degradat de fons de la secció) */
+@media (prefers-reduced-motion: reduce) {
+  .hero-video { display: none; }
+}
+
 /* Lightbox: ampliar qualsevol imatge de contingut en fer-hi clic */
 main img[data-zoomable] {
   cursor: zoom-in;
