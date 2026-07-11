@@ -1,0 +1,126 @@
+<svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Panel de Fitoware sobre Microsoft Dynamics 365 Business Central para horticultura">
+  <defs>
+    <linearGradient id="bc-tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17808c"/><stop offset="1" stop-color="#0f5f6b"/>
+    </linearGradient>
+    <linearGradient id="bc-tile2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d9e80"/><stop offset="1" stop-color="#0c7d68"/>
+    </linearGradient>
+    <filter id="bc-shadow" x="-8%" y="-8%" width="116%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#0c2a47" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Ventana -->
+  <g filter="url(#bc-shadow)">
+    <rect x="8" y="8" width="704" height="444" rx="14" fill="#ffffff"/>
+
+    <!-- Barra superior BC -->
+    <path d="M8 22 a14 14 0 0 1 14-14 h682 a14 14 0 0 1 14 14 v22 h-710 Z" fill="#0b1f2e"/>
+    <text x="28" y="30" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Dynamics 365 Business Central</text>
+    <text x="640" y="30" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="11" fill="#9fb3c2">FITOWARE ES</text>
+    <circle cx="690" cy="26" r="9" fill="#17808c"/>
+    <text x="690" y="30" text-anchor="middle" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="10" font-weight="700" fill="#fff">F</text>
+
+    <!-- Sub-nav módulo -->
+    <rect x="8" y="44" width="704" height="30" fill="#f4f7f9"/>
+    <text x="28" y="63" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="12" font-weight="700" fill="#0c2a47">FITOWARE HORTICULTURA</text>
+    <g font-family="Segoe UI, Inter, Arial, sans-serif" font-size="11" fill="#3a5a72">
+      <text x="210" y="63">Especies</text>
+      <text x="272" y="63">Lotes</text>
+      <text x="316" y="63">Pasaportes</text>
+      <text x="392" y="63">Pedidos B2B</text>
+      <text x="470" y="63">Informes</text>
+    </g>
+    <rect x="316" y="70" width="64" height="3" rx="1.5" fill="#16bd95"/>
+
+    <!-- Fila de KPIs -->
+    <g font-family="Segoe UI, Inter, Arial, sans-serif">
+      <!-- KPI 1 -->
+      <g transform="translate(28,90)">
+        <rect width="150" height="72" rx="8" fill="url(#bc-tile)"/>
+        <text x="14" y="26" font-size="11" fill="#bfe6ea">Ventas temporada</text>
+        <text x="14" y="52" font-size="22" font-weight="800" fill="#ffffff">312.480 €</text>
+        <rect x="14" y="60" width="60" height="3" rx="1.5" fill="#a3e635"/>
+      </g>
+      <!-- KPI 2 -->
+      <g transform="translate(190,90)">
+        <rect width="150" height="72" rx="8" fill="url(#bc-tile)"/>
+        <text x="14" y="26" font-size="11" fill="#bfe6ea">Lotes activos</text>
+        <text x="14" y="52" font-size="22" font-weight="800" fill="#ffffff">1.284</text>
+        <rect x="14" y="60" width="60" height="3" rx="1.5" fill="#a3e635"/>
+      </g>
+      <!-- KPI 3 -->
+      <g transform="translate(352,90)">
+        <rect width="150" height="72" rx="8" fill="url(#bc-tile2)"/>
+        <text x="14" y="26" font-size="11" fill="#d0fbe7">Pasaportes emitidos</text>
+        <text x="14" y="52" font-size="22" font-weight="800" fill="#ffffff">8.640</text>
+        <rect x="14" y="60" width="60" height="3" rx="1.5" fill="#a3e635"/>
+      </g>
+      <!-- KPI 4 -->
+      <g transform="translate(514,90)">
+        <rect width="178" height="72" rx="8" fill="url(#bc-tile)"/>
+        <text x="14" y="26" font-size="11" fill="#bfe6ea">Stock disponible</text>
+        <text x="14" y="52" font-size="22" font-weight="800" fill="#ffffff">94,2 %</text>
+        <rect x="14" y="60" width="60" height="3" rx="1.5" fill="#a3e635"/>
+      </g>
+    </g>
+
+    <!-- Panel: disponibilidad por temporada (barras) -->
+    <g transform="translate(28,180)">
+      <rect width="314" height="252" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="16" y="28" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#0c2a47">Disponibilidad por temporada</text>
+      <text x="16" y="46" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="10" fill="#64748b">Producción y ventana de entrega · unidades (miles)</text>
+      <!-- ejes -->
+      <line x1="16" y1="220" x2="298" y2="220" stroke="#e2e8f0"/>
+      <!-- barras -->
+      <g>
+        <rect x="30"  y="150" width="24" height="70"  rx="3" fill="#0f5f6b"/><rect x="30"  y="120" width="24" height="30" rx="3" fill="#16bd95"/>
+        <rect x="72"  y="130" width="24" height="90"  rx="3" fill="#0f5f6b"/><rect x="72"  y="96"  width="24" height="34" rx="3" fill="#16bd95"/>
+        <rect x="114" y="108" width="24" height="112" rx="3" fill="#0f5f6b"/><rect x="114" y="70"  width="24" height="38" rx="3" fill="#a3e635"/>
+        <rect x="156" y="96"  width="24" height="124" rx="3" fill="#0f5f6b"/><rect x="156" y="58"  width="24" height="38" rx="3" fill="#a3e635"/>
+        <rect x="198" y="128" width="24" height="92"  rx="3" fill="#0f5f6b"/><rect x="198" y="98"  width="24" height="30" rx="3" fill="#16bd95"/>
+        <rect x="240" y="160" width="24" height="60"  rx="3" fill="#0f5f6b"/><rect x="240" y="136" width="24" height="24" rx="3" fill="#16bd95"/>
+      </g>
+      <g font-family="Segoe UI, Inter, Arial, sans-serif" font-size="9" fill="#94a3b8">
+        <text x="42"  y="234" text-anchor="middle">Mar</text>
+        <text x="84"  y="234" text-anchor="middle">Abr</text>
+        <text x="126" y="234" text-anchor="middle">May</text>
+        <text x="168" y="234" text-anchor="middle">Jun</text>
+        <text x="210" y="234" text-anchor="middle">Jul</text>
+        <text x="252" y="234" text-anchor="middle">Ago</text>
+      </g>
+    </g>
+
+    <!-- Panel: variedades (donut) -->
+    <g transform="translate(360,180)">
+      <rect width="332" height="252" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="16" y="28" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#0c2a47">Mix por variedad</text>
+      <!-- donut -->
+      <g transform="translate(92,150)">
+        <circle r="60" fill="none" stroke="#e2e8f0" stroke-width="24"/>
+        <!-- segmentos (stroke-dasharray sobre circunferencia 2πr≈377) -->
+        <circle r="60" fill="none" stroke="#0f5f6b" stroke-width="24" stroke-dasharray="132 245" transform="rotate(-90)"/>
+        <circle r="60" fill="none" stroke="#16bd95" stroke-width="24" stroke-dasharray="100 277" stroke-dashoffset="-132" transform="rotate(-90)"/>
+        <circle r="60" fill="none" stroke="#34d39e" stroke-width="24" stroke-dasharray="83 294" stroke-dashoffset="-232" transform="rotate(-90)"/>
+        <circle r="60" fill="none" stroke="#a3e635" stroke-width="24" stroke-dasharray="62 315" stroke-dashoffset="-315" transform="rotate(-90)"/>
+        <text y="6" text-anchor="middle" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="18" font-weight="800" fill="#0c2a47">42</text>
+      </g>
+      <!-- leyenda -->
+      <g font-family="Segoe UI, Inter, Arial, sans-serif" font-size="11" fill="#334155">
+        <rect x="196" y="70"  width="11" height="11" rx="2" fill="#0f5f6b"/><text x="214" y="80">Ornamental exterior</text>
+        <rect x="196" y="96"  width="11" height="11" rx="2" fill="#16bd95"/><text x="214" y="106">Planta de interior</text>
+        <rect x="196" y="122" width="11" height="11" rx="2" fill="#34d39e"/><text x="214" y="132">Aromáticas</text>
+        <rect x="196" y="148" width="11" height="11" rx="2" fill="#a3e635"/><text x="214" y="158">Frutales jóvenes</text>
+      </g>
+      <!-- badge Power BI / pivote -->
+      <g transform="translate(196,188)">
+        <rect width="120" height="40" rx="8" fill="#f4f7f9" stroke="#e2e8f0"/>
+        <circle cx="22" cy="20" r="10" fill="#0c2a47"/>
+        <path d="M18 20 h8 M22 16 v8" stroke="#a3e635" stroke-width="2" stroke-linecap="round"/>
+        <text x="40" y="17" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="10" font-weight="700" fill="#0c2a47">Power BI</text>
+        <text x="40" y="30" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="9" fill="#64748b">tabla dinámica</text>
+      </g>
+    </g>
+  </g>
+</svg>

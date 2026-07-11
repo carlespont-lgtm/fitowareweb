@@ -1,21 +1,38 @@
 ---
 import { useTranslations, localizedPath, localePrefix, type Locale } from '../i18n/utils';
+import { featurePath } from '../i18n/features';
+import { editionPath } from '../i18n/editions';
+import { operationPath, operationsByCategory, operationImage, opCategories } from '../i18n/operations';
 import LangSwitcher from './LangSwitcher.astro';
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 
 interface Props {
   locale: Locale;
+  alternates?: Partial<Record<Locale, string>>;
 }
-const { locale } = Astro.props;
+const { locale, alternates } = Astro.props;
 const t = useTranslations(locale);
 const home = localePrefix(locale) || '/';
 
-const links = [
-  { href: home, label: t('nav.home') },
-  { href: localizedPath('features', locale), label: t('nav.features') },
-  { href: localizedPath('editions', locale), label: t('nav.editions') },
-  { href: localizedPath('contact', locale), label: t('nav.contact') },
+const mock = (base: string) =>
+  `/mockups/${base}${locale === 'ca' ? '-ca' : locale === 'en' ? '-en' : ''}.svg`;
+
+const featuresHref = localizedPath('features', locale);
+const editionsHref = localizedPath('editions', locale);
+
+// Menú "Funcionalidades" — miniaturas de los mockups reales, enlaza a su página propia
+const featMenu = [
+  { k: 'species', img: mock('fitoware-especies'), href: featurePath('species', locale) },
+  { k: 'passport', img: mock('fitoware-pasaporte'), href: featurePath('passport', locale) },
+  { k: 'traceability', img: mock('trazabilidad'), href: featurePath('traceability', locale) },
+  { k: 'labels', img: mock('etiquetas'), href: featurePath('labels', locale) },
+];
+
+// Menú "Ediciones" — panel BC + GestioERP
+const edMenu = [
+  { k: 'bc', img: '/mockups/business-central-horticultura.svg', tag: 'Dynamics 365', href: editionPath('bc', locale) },
+  { k: 'ge', img: mock('operaciones-iso'), tag: 'GestioERP', href: editionPath('ge', locale) },
 ];
 ---
 <header class="sticky top-0 z-50 border-b border-slate-100 bg-white/90 backdrop-blur">
@@ -25,22 +42,136 @@ const links = [
     </a>
 
     <ul class="hidden items-center gap-1 lg:flex">
-      {
-        links.map((l) => (
-          <li>
-            <a
-              href={l.href}
-              class="rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-brand-700"
-            >
-              {l.label}
+      <li>
+        <a href={home} class="rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-brand-700">
+          {t('nav.home')}
+        </a>
+      </li>
+
+      <!-- FUNCIONALIDADES (mega-menú) -->
+      <li class="nav-dd">
+        <a href={featuresHref} class="nav-trigger inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-brand-700" aria-haspopup="true">
+          {t('nav.features')}
+          <svg class="nav-chevron h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+        <div class="nav-panel">
+          <div class="nav-card w-[640px] max-w-[92vw] p-4">
+            <div class="grid grid-cols-2 gap-3">
+              {
+                featMenu.map((f) => (
+                  <a href={f.href} class="group flex gap-3 rounded-xl p-2.5 transition hover:bg-slate-50">
+                    {f.img ? (
+                      <span class="h-16 w-24 shrink-0 overflow-hidden rounded-lg border border-slate-100 bg-slate-50">
+                        <img src={f.img} alt="" width="96" height="64" loading="lazy" class="h-full w-full object-cover object-left-top" />
+                      </span>
+                    ) : (
+                      <span class="grid h-16 w-24 shrink-0 place-items-center rounded-lg text-white" style={`background:linear-gradient(135deg, ${f.grad?.[0]}, ${f.grad?.[1]})`}>
+                        <Icon name={f.icon!} class="h-6 w-6" />
+                      </span>
+                    )}
+                    <span class="min-w-0">
+                      <span class="block text-sm font-semibold text-ink-900 group-hover:text-brand-700">{t(`feat.${f.k}.t`)}</span>
+                      <span class="mt-0.5 block text-xs leading-snug text-slate-500 line-clamp-2">{t(`feat.${f.k}.d`)}</span>
+                    </span>
+                  </a>
+                ))
+              }
+            </div>
+            <a href={featuresHref} class="mt-3 flex items-center justify-between rounded-xl bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700 transition hover:bg-brand-100">
+              {t('menu.features.all')}
+              <Icon name="arrow" class="h-4 w-4" />
             </a>
-          </li>
-        ))
-      }
+          </div>
+        </div>
+      </li>
+
+      <!-- EDICIONES (mega-menú) -->
+      <li class="nav-dd">
+        <a href={editionsHref} class="nav-trigger inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-brand-700" aria-haspopup="true">
+          {t('nav.editions')}
+          <svg class="nav-chevron h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+        <div class="nav-panel">
+          <div class="nav-card w-[560px] max-w-[92vw] p-4">
+            <p class="px-1 pb-2 text-xs font-bold uppercase tracking-widest text-brand-600">{t('menu.editions.tag')}</p>
+            <div class="grid grid-cols-2 gap-3">
+              {
+                edMenu.map((e) => (
+                  <a href={e.href} class="group flex flex-col overflow-hidden rounded-xl border border-slate-100 transition hover:border-brand-200 hover:shadow-sm">
+                    <span class="aspect-[16/10] overflow-hidden bg-slate-50">
+                      <img src={e.img} alt="" width="256" height="160" loading="lazy" class="h-full w-full object-cover object-top transition group-hover:scale-[1.03]" />
+                    </span>
+                    <span class="flex items-center justify-between gap-2 p-3">
+                      <span class="min-w-0">
+                        <span class="block truncate text-sm font-semibold text-ink-900 group-hover:text-brand-700">{t(`ed.${e.k}.name`)}</span>
+                        <span class="block truncate text-xs text-slate-500">{t(`ed.${e.k}.platform`)}</span>
+                      </span>
+                      <span class="shrink-0 rounded-full bg-ink-900/5 px-2 py-0.5 text-[10px] font-semibold text-ink-700">{e.tag}</span>
+                    </span>
+                  </a>
+                ))
+              }
+            </div>
+            <a href={editionsHref} class="mt-3 flex items-center justify-between rounded-xl bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700 transition hover:bg-brand-100">
+              {t('menu.editions.compare')}
+              <Icon name="arrow" class="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </li>
+
+      <!-- BUSINESS CENTRAL (mega-menú: qué hace, con imágenes) -->
+      <li class="nav-dd">
+        <a href={editionPath('bc', locale)} class="nav-trigger inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-brand-700" aria-haspopup="true">
+          Business Central
+          <svg class="nav-chevron h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+        <div class="nav-panel nav-panel--wide">
+          <div class="nav-card w-[860px] max-w-[92vw] p-5">
+            <div class="mb-3 flex items-baseline justify-between gap-4">
+              <p class="text-xs font-bold uppercase tracking-widest text-brand-600">{t('menu.bc.tag')}</p>
+              <span class="text-xs font-medium text-slate-400">Microsoft Dynamics 365</span>
+            </div>
+            <div class="grid grid-cols-4 gap-x-5 gap-y-2">
+              {
+                opCategories.map((cat) => (
+                  <div>
+                    <p class="px-1 pb-1.5 text-[11px] font-bold uppercase tracking-wide text-slate-400">{t(`ops.cat.${cat}`)}</p>
+                    <ul class="space-y-0.5">
+                      {
+                        operationsByCategory(cat).map((o) => (
+                          <li>
+                            <a href={operationPath(o.key, locale)} class="group flex items-center gap-2.5 rounded-lg p-1.5 transition hover:bg-slate-50">
+                              <span class="h-9 w-12 shrink-0 overflow-hidden rounded-md border border-slate-100 bg-slate-50">
+                                <img src={operationImage(o, locale)} alt="" width="48" height="36" loading="lazy" class="h-full w-full object-cover object-left-top" />
+                              </span>
+                              <span class="text-[13px] font-semibold leading-tight text-ink-900 group-hover:text-brand-700">{t(`ops.${o.key}.title`)}</span>
+                            </a>
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </div>
+                ))
+              }
+            </div>
+            <a href={editionPath('bc', locale)} class="mt-4 flex items-center justify-between rounded-xl bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700 transition hover:bg-brand-100">
+              {t('menu.bc.all')}
+              <Icon name="arrow" class="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <a href={localizedPath('contact', locale)} class="rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-brand-700">
+          {t('nav.contact')}
+        </a>
+      </li>
     </ul>
 
     <div class="flex items-center gap-2">
-      <LangSwitcher locale={locale} />
+      <LangSwitcher locale={locale} alternates={alternates} />
       <a
         href={localizedPath('support', locale)}
         class="hidden items-center gap-1.5 rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-600 sm:inline-flex"
@@ -69,20 +200,94 @@ const links = [
     </div>
   </nav>
 
+  <!-- MENÚ MÓVIL -->
   <div id="mobile-menu" class="hidden border-t border-slate-100 bg-white lg:hidden">
     <ul class="mx-auto max-w-6xl space-y-1 px-4 py-3">
-      {
-        links.map((l) => (
-          <li>
-            <a
-              href={l.href}
-              class="block rounded-lg px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-50 hover:text-brand-700"
-            >
-              {l.label}
-            </a>
-          </li>
-        ))
-      }
+      <li>
+        <a href={home} class="block rounded-lg px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-50 hover:text-brand-700">{t('nav.home')}</a>
+      </li>
+
+      <li>
+        <details class="mob-acc">
+          <summary class="mob-summary">
+            {t('nav.features')}
+            <svg class="mob-chev h-5 w-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <div class="mt-1 grid grid-cols-2 gap-2 pl-2 pb-1">
+            {
+              featMenu.map((f) => (
+                <a href={f.href} class="flex items-center gap-2 rounded-lg border border-slate-100 p-2">
+                  {f.img ? (
+                    <img src={f.img} alt="" width="48" height="32" loading="lazy" class="h-8 w-12 shrink-0 rounded object-cover object-left-top" />
+                  ) : (
+                    <span class="grid h-8 w-12 shrink-0 place-items-center rounded text-white" style={`background:linear-gradient(135deg, ${f.grad?.[0]}, ${f.grad?.[1]})`}>
+                      <Icon name={f.icon!} class="h-4 w-4" />
+                    </span>
+                  )}
+                  <span class="truncate text-xs font-semibold text-ink-900">{t(`feat.${f.k}.t`)}</span>
+                </a>
+              ))
+            }
+          </div>
+          <a href={featuresHref} class="mob-sublink">{t('menu.features.all')} →</a>
+        </details>
+      </li>
+
+      <li>
+        <details class="mob-acc">
+          <summary class="mob-summary">
+            {t('nav.editions')}
+            <svg class="mob-chev h-5 w-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <div class="mt-1 grid grid-cols-2 gap-2 pl-2 pb-1">
+            {
+              edMenu.map((e) => (
+                <a href={e.href} class="overflow-hidden rounded-lg border border-slate-100">
+                  <img src={e.img} alt="" width="160" height="100" loading="lazy" class="aspect-[16/10] w-full object-cover object-top" />
+                  <span class="block truncate p-2 text-xs font-semibold text-ink-900">{t(`ed.${e.k}.name`)}</span>
+                </a>
+              ))
+            }
+          </div>
+          <a href={editionsHref} class="mob-sublink">{t('menu.editions.compare')} →</a>
+        </details>
+      </li>
+
+      <li>
+        <details class="mob-acc">
+          <summary class="mob-summary">
+            Business Central
+            <svg class="mob-chev h-5 w-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <div class="space-y-3 pl-2 pb-1 pt-1">
+            {
+              opCategories.map((cat) => (
+                <div>
+                  <p class="px-2 text-[11px] font-bold uppercase tracking-wide text-slate-400">{t(`ops.cat.${cat}`)}</p>
+                  <ul class="mt-0.5">
+                    {
+                      operationsByCategory(cat).map((o) => (
+                        <li>
+                          <a href={operationPath(o.key, locale)} class="flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition hover:bg-slate-50">
+                            <span class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-brand-100 text-brand-700"><Icon name={o.icon} class="h-4 w-4" /></span>
+                            <span class="text-sm font-medium text-ink-900">{t(`ops.${o.key}.title`)}</span>
+                          </a>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+              ))
+            }
+          </div>
+          <a href={editionPath('bc', locale)} class="mob-sublink">{t('menu.bc.all')} →</a>
+        </details>
+      </li>
+
+      <li>
+        <a href={localizedPath('contact', locale)} class="block rounded-lg px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-50 hover:text-brand-700">{t('nav.contact')}</a>
+      </li>
+
       <li class="flex gap-2 pt-2">
         <a
           href={localizedPath('support', locale)}
@@ -101,6 +306,91 @@ const links = [
     </ul>
   </div>
 </header>
+
+<style>
+  /* Mega-menú desktop: abre por hover y por foco de teclado (sin JS) */
+  .nav-dd {
+    position: relative;
+  }
+  .nav-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding-top: 10px; /* puente transparente hover botón→panel */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    z-index: 60;
+  }
+  /* El panel ancho de Business Central se centra bajo su disparador para no desbordar */
+  .nav-panel--wide {
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, 6px);
+  }
+  .nav-card {
+    border-radius: 16px;
+    border: 1px solid rgb(241 245 249);
+    background: #fff;
+    box-shadow: 0 10px 15px -3px rgba(12, 42, 71, 0.08), 0 24px 48px -24px rgba(12, 42, 71, 0.35);
+  }
+  .nav-dd:hover .nav-panel,
+  .nav-dd:focus-within .nav-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  /* Mantener el centrado del panel ancho también en estado abierto */
+  .nav-dd:hover .nav-panel--wide,
+  .nav-dd:focus-within .nav-panel--wide {
+    transform: translate(-50%, 0);
+  }
+  .nav-dd:hover .nav-chevron,
+  .nav-dd:focus-within .nav-chevron {
+    transform: rotate(180deg);
+  }
+  .nav-chevron {
+    transition: transform 0.2s ease;
+  }
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  /* Acordeones del menú móvil */
+  .mob-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(51 65 85);
+    cursor: pointer;
+    list-style: none;
+  }
+  .mob-summary::-webkit-details-marker { display: none; }
+  .mob-summary:hover { background: rgb(248 250 252); color: rgb(4 120 87); }
+  .mob-chev { transition: transform 0.2s ease; }
+  .mob-acc[open] > .mob-summary .mob-chev { transform: rotate(180deg); }
+  .mob-sublink {
+    display: block;
+    padding: 0.5rem 0.75rem 0.5rem 1.25rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgb(4 120 87);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mob-chev { transition: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-panel,
+    .nav-chevron { transition: none; }
+  }
+</style>
 
 <script is:inline>
   (function () {

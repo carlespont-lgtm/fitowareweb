@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import OperationDetailPage from '../../../components/pages/OperationDetailPage.astro';
+import { operationList, operationAlternates } from '../../../i18n/operations';
+import { useTranslations } from '../../../i18n/utils';
+
+export function getStaticPaths() {
+  return operationList.map((o) => ({
+    params: { operation: o.slug.ca },
+    props: { operationKey: o.key },
+  }));
+}
+
+const { operationKey } = Astro.props;
+const t = useTranslations('ca');
+const alternates = operationAlternates(operationKey);
+---
+<BaseLayout title={`${t(`ops.${operationKey}.title`)} · Business Central`} description={t(`ops.${operationKey}.lead`)} alternates={alternates}>
+  <OperationDetailPage locale="ca" operationKey={operationKey} />
+</BaseLayout>

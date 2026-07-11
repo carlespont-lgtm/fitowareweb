@@ -1,5 +1,6 @@
 ---
 import { useTranslations, localizedPath, type Locale } from '../../i18n/utils';
+import { featurePath } from '../../i18n/features';
 import Icon from '../Icon.astro';
 
 interface Props {
@@ -34,13 +35,16 @@ const mock = (base: string) => `/mockups/${base}${locale === 'ca' ? '-ca' : loca
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {
         features.map((f) => (
-          <div class="reveal rounded-2xl border border-slate-100 bg-slate-50/60 p-7">
+          <a href={featurePath(f.k, locale)} class="reveal group flex flex-col rounded-2xl border border-slate-100 bg-slate-50/60 p-7 transition hover:-translate-y-1 hover:border-brand-200 hover:bg-white hover:shadow-md">
             <span class="grid h-12 w-12 place-items-center rounded-xl text-white shadow-sm" style={`background:linear-gradient(135deg, ${f.grad[0]}, ${f.grad[1]})`}>
               <Icon name={f.icon} class="h-6 w-6" />
             </span>
-            <h3 class="mt-5 text-lg font-bold text-ink-900">{t(`feat.${f.k}.t`)}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-slate-600">{t(`feat.${f.k}.d`)}</p>
-          </div>
+            <h3 class="mt-5 text-lg font-bold text-ink-900 group-hover:text-brand-700">{t(`feat.${f.k}.t`)}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{t(`feat.${f.k}.d`)}</p>
+            <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600">
+              {t('fdet.see')} <Icon name="arrow" class="h-4 w-4 transition group-hover:translate-x-0.5" />
+            </span>
+          </a>
         ))
       }
     </div>

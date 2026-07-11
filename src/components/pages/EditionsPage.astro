@@ -1,5 +1,6 @@
 ---
 import { useTranslations, localizedPath, type Locale } from '../../i18n/utils';
+import { editionPath } from '../../i18n/editions';
 import Icon from '../Icon.astro';
 
 interface Props {
@@ -130,9 +131,14 @@ const t = useTranslations(locale);
             <p class="text-slate-500">Implantación y soporte · Microsoft Dynamics 365</p>
           </div>
         </div>
-        <a href="https://www.ionnavis.com" target="_blank" rel="noopener" class="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-ink-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-ink-800">
-          {t('ed.bc.cta')} <Icon name="external" class="h-4 w-4" />
-        </a>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href={editionPath('bc', locale)} class="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-ink-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-ink-800">
+            {t('fdet.see')} · {t('ed.bc.name')} <Icon name="arrow" class="h-4 w-4" />
+          </a>
+          <a href="https://www.ionnavis.com" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50">
+            <Icon name="external" class="h-4 w-4" />
+          </a>
+        </div>
       </div>
 
       <!-- GestioERP -->
@@ -152,9 +158,14 @@ const t = useTranslations(locale);
             <p class="text-slate-500">ERP en la nube · grupo SIAM Cloud</p>
           </div>
         </div>
-        <a href="https://gestioerp.com" target="_blank" rel="noopener" class="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-600">
-          {t('ed.ge.cta')} <Icon name="external" class="h-4 w-4" />
-        </a>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href={editionPath('ge', locale)} class="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-600">
+            {t('fdet.see')} · {t('ed.ge.name')} <Icon name="arrow" class="h-4 w-4" />
+          </a>
+          <a href="https://gestioerp.com" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50">
+            <Icon name="external" class="h-4 w-4" />
+          </a>
+        </div>
       </div>
     </div>
 

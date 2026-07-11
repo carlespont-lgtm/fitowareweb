@@ -56,12 +56,23 @@ const t = useTranslations(locale);
 
     <!-- ASIDE -->
     <aside class="reveal lg:col-span-2">
+      <div class="photo-frame mb-6 aspect-[4/3] shadow-lg">
+        <img src="/photos/productora.png" alt="Productora de planta ornamental revisando el cultivo" loading="lazy" />
+      </div>
       <div class="rounded-2xl border border-slate-100 bg-slate-50/60 p-8">
         <p class="text-sm font-semibold text-slate-700">{t('contact.or')}</p>
         <ul class="mt-4 space-y-4 text-sm">
           <li class="flex items-center gap-3">
+            <span class="grid h-9 w-9 place-items-center rounded-lg bg-brand-100 text-brand-700"><Icon name="phone" class="h-4 w-4" /></span>
+            <a href="tel:+34722175283" class="font-medium text-ink-900 transition hover:text-brand-700">+34 722 175 283</a>
+          </li>
+          <li class="flex items-center gap-3">
             <span class="grid h-9 w-9 place-items-center rounded-lg bg-brand-100 text-brand-700"><Icon name="mail" class="h-4 w-4" /></span>
-            <a href="mailto:info@fitoware.com" class="font-medium text-ink-900 transition hover:text-brand-700">info@fitoware.com</a>
+            <a href="mailto:lluis@slave.net" class="font-medium text-ink-900 transition hover:text-brand-700">lluis@slave.net</a>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-brand-100 text-brand-700"><Icon name="globe" class="h-4 w-4" /></span>
+            <span class="font-medium text-ink-900">{t('contact.addr')}</span>
           </li>
           <li class="flex items-center gap-3">
             <span class="grid h-9 w-9 place-items-center rounded-lg bg-brand-100 text-brand-700"><Icon name="external" class="h-4 w-4" /></span>

@@ -3,15 +3,17 @@ import { locales, getAlternatePath, type Locale } from '../i18n/utils';
 
 interface Props {
   locale: Locale;
+  alternates?: Partial<Record<Locale, string>>;
 }
-const { locale } = Astro.props;
+const { locale, alternates } = Astro.props;
 const labels: Record<Locale, string> = { ca: 'CA', es: 'ES', en: 'EN' };
+const hrefFor = (l: Locale): string => alternates?.[l] ?? getAlternatePath(Astro.url, l);
 ---
 <div class="flex items-center rounded-lg border border-slate-200 p-0.5 text-xs font-semibold">
   {
     locales.map((l) => (
       <a
-        href={getAlternatePath(Astro.url, l)}
+        href={hrefFor(l)}
         class:list={[
           'rounded px-2 py-1 transition',
           l === locale ? 'bg-brand-500 text-white' : 'text-slate-500 hover:text-brand-700',

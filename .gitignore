@@ -11,3 +11,7 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# imágenes fuente sueltas dejadas en la raíz (las usadas están en public/)
+/image-*.png
+/image-*.webp

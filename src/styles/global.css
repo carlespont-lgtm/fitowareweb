@@ -126,6 +126,141 @@ body {
   .marquee { overflow-x: auto; }
 }
 
+/* Lightbox: ampliar qualsevol imatge de contingut en fer-hi clic */
+main img[data-zoomable] {
+  cursor: zoom-in;
+}
+.fito-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(12px, 4vw, 56px);
+  background: rgba(8, 29, 51, 0.88);
+  cursor: zoom-out;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+@supports (backdrop-filter: blur(6px)) {
+  .fito-lightbox { backdrop-filter: blur(6px); }
+}
+.fito-lightbox.is-open {
+  display: flex;
+  opacity: 1;
+}
+.fito-lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+  cursor: default;
+  transform: scale(0.96);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fito-lightbox.is-open img {
+  transform: scale(1);
+}
+.fito-lightbox__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+.fito-lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+.fito-lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+.fito-lightbox__nav:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+.fito-lightbox__prev { left: clamp(8px, 3vw, 32px); }
+.fito-lightbox__next { right: clamp(8px, 3vw, 32px); }
+/* Las flechas solo aparecen cuando la galería tiene varias imágenes */
+.fito-lightbox.has-nav.is-open .fito-lightbox__nav {
+  display: grid;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fito-lightbox,
+  .fito-lightbox img { transition: none; }
+}
+
+/* Foto amb marc arrodonit i zoom suau en hover */
+.photo-frame {
+  overflow: hidden;
+  border-radius: 1rem;
+}
+.photo-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.photo-frame:hover img {
+  transform: scale(1.06);
+}
+
+/* Ken Burns: zoom/panoràmica lenta i contínua per a fotos de fons */
+@media (prefers-reduced-motion: no-preference) {
+  .ken-burns {
+    animation: fito-kenburns 22s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+}
+@keyframes fito-kenburns {
+  from { transform: scale(1.05) translate(0, 0); }
+  to { transform: scale(1.16) translate(-2%, -2%); }
+}
+
+/* Aparició amb desenfoc (premium reveal per a imatges/blocs destacats) */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready .reveal-blur {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(22px) scale(0.985);
+  }
+  .reveal-blur.is-visible {
+    animation: fito-reveal-blur 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes fito-reveal-blur {
+    to { opacity: 1; filter: blur(0); transform: none; }
+  }
+}
+
+/* Flotació suau (per a targetes/imatges destacades) */
+@media (prefers-reduced-motion: no-preference) {
+  .float-soft { animation: fito-float 6s ease-in-out infinite; }
+}
+@keyframes fito-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
 /* Reflex als botons principals */
 .btn-shine {
   position: relative;

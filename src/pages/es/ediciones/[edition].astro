@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import EditionDetailPage from '../../../components/pages/EditionDetailPage.astro';
+import { editionList, editionAlternates } from '../../../i18n/editions';
+import { useTranslations } from '../../../i18n/utils';
+
+export function getStaticPaths() {
+  return editionList.map((e) => ({
+    params: { edition: e.slug },
+    props: { editionKey: e.key },
+  }));
+}
+
+const { editionKey } = Astro.props;
+const t = useTranslations('es');
+const alternates = editionAlternates(editionKey);
+---
+<BaseLayout title={t(`ed.${editionKey}.name`)} description={t(`edet.${editionKey}.lead`)} alternates={alternates}>
+  <EditionDetailPage locale="es" editionKey={editionKey} />
+</BaseLayout>

@@ -1,0 +1,51 @@
+---
+import { useTranslations, type Locale } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+<button
+  id="scroll-top"
+  type="button"
+  aria-label={t('scrolltop.label')}
+  class="pointer-events-none fixed bottom-5 left-5 z-[85] grid h-12 w-12 translate-y-4 place-items-center rounded-full bg-ink-900 text-white opacity-0 shadow-xl transition-all duration-300 hover:scale-105 hover:bg-ink-800"
+>
+  <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="m18 15-6-6-6 6" />
+  </svg>
+</button>
+
+<script is:inline>
+  (function () {
+    // Listener de scroll global (una sola vez; window persiste entre transiciones de página)
+    if (!window.__fitoScrollTop) {
+      window.__fitoScrollTop = true;
+      var update = function () {
+        var btn = document.getElementById('scroll-top');
+        if (!btn) return;
+        var show = window.scrollY > 400;
+        btn.classList.toggle('opacity-0', !show);
+        btn.classList.toggle('translate-y-4', !show);
+        btn.classList.toggle('pointer-events-none', !show);
+      };
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+      document.addEventListener('astro:page-load', update);
+    }
+    function bindClick() {
+      var btn = document.getElementById('scroll-top');
+      if (!btn || btn.dataset.bound) return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', function () {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      });
+    }
+    document.addEventListener('astro:page-load', bindClick);
+    if (document.readyState !== 'loading') bindClick();
+    else document.addEventListener('DOMContentLoaded', bindClick);
+  })();
+</script>

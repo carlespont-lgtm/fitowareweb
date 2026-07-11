@@ -1,0 +1,273 @@
+---
+import { useTranslations, localizedPath, type Locale } from '../../i18n/utils';
+import { editionList, editionPath, editionMockup } from '../../i18n/editions';
+import { operationPath, operationsByCategory, opCategories } from '../../i18n/operations';
+import Icon from '../Icon.astro';
+
+interface Props {
+  locale: Locale;
+  editionKey: 'bc' | 'ge';
+}
+const { locale, editionKey } = Astro.props;
+const t = useTranslations(locale);
+
+const edition = editionList.find((e) => e.key === editionKey)!;
+const other = editionList.find((e) => e.key !== editionKey)!;
+
+// Bloque "¿Por qué Business Central?" (10 puntos) — solo BC
+const whyBc = [
+  { k: 'f1', icon: 'layers' }, { k: 'f2', icon: 'sprout' }, { k: 'f3', icon: 'shopping-cart' },
+  { k: 'f4', icon: 'book' }, { k: 'f5', icon: 'qr' }, { k: 'f6', icon: 'file-text' },
+  { k: 'f7', icon: 'monitor' }, { k: 'f8', icon: 'link' }, { k: 'f9', icon: 'network' },
+  { k: 'f10', icon: 'wrench' },
+];
+// Nube y seguridad — solo GestioERP
+const geFeatures = [
+  { k: 'c1', icon: 'cloud' }, { k: 'c2', icon: 'monitor' }, { k: 'c3', icon: 'shield' },
+  { k: 'c4', icon: 'lock' }, { k: 'c5', icon: 'network' }, { k: 'c6', icon: 'server' },
+];
+const photos = ['invernadero-hileras', 'invernadero-riego', 'invernadero-flor', 'productora'];
+---
+<!-- HERO -->
+<section class="relative overflow-hidden border-b border-slate-100 bg-gradient-to-br from-ink-950 via-ink-900 to-brand-800">
+  <div class="fito-dots absolute inset-0 opacity-40"></div>
+  <div class="relative mx-auto max-w-6xl px-4 py-14 sm:py-16">
+    <a href={localizedPath('editions', locale)} class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-100/80 transition hover:text-white">
+      <Icon name="arrow" class="h-4 w-4 rotate-180" /> {t('editions.eyebrow')}
+    </a>
+    <div class="mt-6 grid items-center gap-10 lg:grid-cols-2">
+      <div>
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-sm font-semibold text-white backdrop-blur">
+          <Icon name={edition.icon} class="h-4 w-4 text-leaf-300" />
+          {t(`ed.${edition.key}.tag`)}
+        </span>
+        <h1 class="mt-5 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">{t(`ed.${edition.key}.name`)}</h1>
+        <p class="mt-1 text-base font-semibold text-brand-200">{t(`ed.${edition.key}.platform`)}</p>
+        <p class="mt-4 text-lg leading-relaxed text-brand-50/85">{t(`edet.${edition.key}.lead`)}</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={localizedPath('contact', locale)} class="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-brand-400">
+            {t('cta.button')} <Icon name="arrow" class="h-4 w-4" />
+          </a>
+          <a href={edition.external} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg border border-white/25 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15">
+            {t(`ed.${edition.key}.cta`)} <Icon name="external" class="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+      <div class="reveal is-visible overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+        <img src={editionMockup(edition, locale)} alt={t(`ed.${edition.key}.name`)} width="760" height="480" class="w-full" />
+      </div>
+    </div>
+  </div>
+</section>
+
+{edition.key === 'bc' && (
+  <section class="bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand-600">{t('whybc.eyebrow')}</p>
+      <h2 class="mt-3 max-w-3xl text-2xl font-extrabold tracking-tight text-ink-900 sm:text-3xl">{t('whybc.title')}</h2>
+      <p class="mt-4 max-w-2xl text-lg text-slate-600">{t('whybc.subtitle')}</p>
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {whyBc.map((f) => (
+          <div class="reveal rounded-2xl border border-slate-100 bg-slate-50/60 p-6">
+            <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700">
+              <Icon name={f.icon} class="h-5 w-5" />
+            </span>
+            <h3 class="mt-4 text-base font-bold text-ink-900">{t(`whybc.${f.k}.t`)}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{t(`whybc.${f.k}.d`)}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-10 flex flex-wrap items-center gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+        <img src={edition.brandLogo} alt="IONNAVIS" width="48" height="48" class="h-12 w-12 rounded-lg" />
+        <div class="text-sm">
+          <p class="font-semibold text-ink-900">Partner IONNAVIS</p>
+          <p class="text-slate-500">Implantación y soporte · Microsoft Dynamics 365 Business Central</p>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+{edition.key === 'bc' && (
+  <section class="bg-slate-50 py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand-600">{t('edet.bc.gallery.eyebrow')}</p>
+      <h2 class="mt-3 text-2xl font-extrabold tracking-tight text-ink-900 sm:text-3xl">{t('edet.bc.gallery.title')}</h2>
+      <div class="mt-10 grid gap-5 lg:grid-cols-3">
+        {[
+          { img: '/screens/bc-inicio.webp', k: 'g1' },
+          { img: '/screens/bc-powerbi.webp', k: 'g2' },
+          { img: '/screens/bc-pedidos.png', k: 'g3' },
+        ].map((s) => (
+          <figure class="reveal-blur overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="photo-frame aspect-[16/10] border-b border-slate-100">
+              <img src={s.img} alt={t(`edet.bc.${s.k}`)} data-gallery="bc-screens" loading="lazy" />
+            </div>
+            <figcaption class="px-5 py-3 text-sm font-semibold text-ink-900">{t(`edet.bc.${s.k}`)}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+{edition.key === 'bc' && (
+  <section class="bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand-600">{t('ops.section.eyebrow')}</p>
+      <h2 class="mt-3 max-w-3xl text-2xl font-extrabold tracking-tight text-ink-900 sm:text-3xl">{t('ops.section.title')}</h2>
+      <div class="mt-12 space-y-12">
+        {opCategories.map((cat) => (
+          <div>
+            <h3 class="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-ink-700">
+              <span class="h-px flex-none w-8 bg-brand-400"></span>{t(`ops.cat.${cat}`)}
+            </h3>
+            <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {operationsByCategory(cat).map((o) => (
+                <a href={operationPath(o.key, locale)} class="group flex flex-col rounded-2xl border border-slate-100 bg-slate-50/60 p-6 transition hover:-translate-y-1 hover:border-brand-200 hover:bg-white hover:shadow-md">
+                  <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700">
+                    <Icon name={o.icon} class="h-5 w-5" />
+                  </span>
+                  <h4 class="mt-4 text-base font-bold text-ink-900 group-hover:text-brand-700">{t(`ops.${o.key}.title`)}</h4>
+                  <p class="mt-1 flex-1 text-sm leading-relaxed text-slate-600">{t(`ops.${o.key}.sub`)}</p>
+                  <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600">
+                    {t('fdet.see')} <Icon name="arrow" class="h-4 w-4 transition group-hover:translate-x-0.5" />
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+{edition.key === 'ge' && (
+  <>
+    <!-- MIGRACIÓN FOXPRO/CLIPPER → NUBE -->
+    <section class="bg-white py-16 sm:py-20">
+      <div class="mx-auto max-w-6xl px-4">
+        <p class="text-sm font-bold uppercase tracking-widest text-brand-600">{t('edet.ge.mig.eyebrow')}</p>
+        <h2 class="mt-3 max-w-3xl text-2xl font-extrabold tracking-tight text-ink-900 sm:text-3xl">{t('edet.ge.mig.title')}</h2>
+        <p class="mt-4 max-w-2xl text-lg text-slate-600">{t('edet.ge.mig.desc')}</p>
+        <div class="mt-10 grid items-stretch gap-4 sm:grid-cols-[1fr_auto_1fr]">
+          <div class="reveal rounded-2xl border border-slate-200 bg-slate-50 p-7">
+            <span class="inline-flex items-center gap-2 rounded-full bg-slate-200 px-3 py-1 text-xs font-bold uppercase tracking-wide text-slate-600">
+              <Icon name="server" class="h-3.5 w-3.5" /> {t('edet.ge.mig.old.t')}
+            </span>
+            <p class="mt-4 leading-relaxed text-slate-600">{t('edet.ge.mig.old.d')}</p>
+          </div>
+          <div class="hidden items-center justify-center sm:flex">
+            <span class="grid h-12 w-12 place-items-center rounded-full bg-brand-500 text-white shadow-lg">
+              <Icon name="arrow" class="h-6 w-6" />
+            </span>
+          </div>
+          <div class="reveal rounded-2xl border-2 border-brand-500 bg-brand-50/50 p-7">
+            <span class="inline-flex items-center gap-2 rounded-full bg-brand-500 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+              <Icon name="cloud" class="h-3.5 w-3.5" /> {t('edet.ge.mig.new.t')}
+            </span>
+            <p class="mt-4 leading-relaxed text-ink-800">{t('edet.ge.mig.new.d')}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NUBE Y SEGURIDAD -->
+    <section class="bg-slate-50 py-16 sm:py-20">
+      <div class="mx-auto max-w-6xl px-4">
+        <p class="text-sm font-bold uppercase tracking-widest text-brand-600">{t('edet.security.eyebrow')}</p>
+        <h2 class="mt-3 max-w-3xl text-2xl font-extrabold tracking-tight text-ink-900 sm:text-3xl">{t('edet.security.title')}</h2>
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {geFeatures.map((f) => (
+            <div class="reveal rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
+              <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700">
+                <Icon name={f.icon} class="h-5 w-5" />
+              </span>
+              <h3 class="mt-4 text-base font-bold text-ink-900">{t(`edet.ge.${f.k}.t`)}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">{t(`edet.ge.${f.k}.d`)}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FOTOS DEL SECTOR -->
+    <section class="bg-white py-16 sm:py-20">
+      <div class="mx-auto max-w-6xl px-4">
+        <p class="text-sm font-bold uppercase tracking-widest text-brand-600">{t('edet.photos.eyebrow')}</p>
+        <h2 class="mt-3 max-w-3xl text-2xl font-extrabold tracking-tight text-ink-900 sm:text-3xl">{t('edet.photos.title')}</h2>
+        <div class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {photos.map((p) => (
+            <figure class="photo-slot">
+              <img src={`/photos/${p}.png`} alt={t('edet.photos.title')} data-gallery="sector" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('is-empty')" />
+              <figcaption class="ph-label"><Icon name="sprout" class="h-6 w-6" /> {t('edet.photos.empty')}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  </>
+)}
+
+<!-- LA OTRA EDICIÓN + CTA -->
+<section class="bg-slate-50 py-16">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="flex flex-col items-start justify-between gap-6 rounded-3xl bg-gradient-to-br from-brand-600 to-brand-800 p-8 sm:flex-row sm:items-center sm:p-10">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-widest text-brand-100/80">{t('edet.other')}</p>
+        <h2 class="mt-2 text-2xl font-extrabold tracking-tight text-white">{t(`ed.${other.key}.name`)}</h2>
+        <p class="mt-1 text-brand-50/85">{t(`ed.${other.key}.platform`)}</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href={editionPath(other.key, locale)} class="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-brand-700 shadow-lg transition hover:bg-brand-50">
+          {t(`ed.${other.key}.name`)} <Icon name="arrow" class="h-4 w-4" />
+        </a>
+        <a href={localizedPath('contact', locale)} class="inline-flex items-center gap-2 rounded-lg border border-white/30 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15">
+          {t('cta.button')}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .photo-slot {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid rgb(226 232 240);
+    background: linear-gradient(135deg, #d0fbe7, #6ee7b9);
+  }
+  .photo-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .photo-slot:hover img {
+    transform: scale(1.06);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .photo-slot img { transition: none; }
+  }
+  .ph-label {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0c7d68;
+    text-align: center;
+    padding: 12px;
+  }
+  .photo-slot.is-empty .ph-label {
+    display: flex;
+  }
+</style>
