@@ -104,86 +104,86 @@ const orgSchema = {
     </div>
 
     <script is:inline>
+      // Lightbox robusto ante View Transitions: todo por delegación en document
+      // (listeners únicos), sin binding por-elemento que se pierda al navegar.
       (function () {
-        function initLightbox() {
-          var box = document.getElementById('fito-lightbox');
-          if (!box) return;
-          var boxImg = box.querySelector('img');
-          var closeBtn = box.querySelector('.fito-lightbox__close');
-          var prevBtn = box.querySelector('.fito-lightbox__prev');
-          var nextBtn = box.querySelector('.fito-lightbox__next');
-          var lastFocus = null;
-          var group = [];   // elementos <img> de la galería actual
-          var idx = 0;
-          function render() {
-            var img = group[idx];
-            if (!img) return;
-            boxImg.setAttribute('src', img.currentSrc || img.getAttribute('src'));
-            boxImg.setAttribute('alt', img.getAttribute('alt') || '');
-            var many = group.length > 1;
-            box.classList.toggle('has-nav', many);
-          }
-          function openFrom(img) {
-            var gal = img.getAttribute('data-gallery');
-            if (gal) {
-              group = [].slice.call(document.querySelectorAll('main img[data-gallery="' + gal + '"]'));
-            } else {
-              group = [img];
-            }
-            idx = Math.max(0, group.indexOf(img));
-            render();
-            box.classList.add('is-open');
-            document.documentElement.style.overflow = 'hidden';
-            lastFocus = document.activeElement;
-            closeBtn.focus();
-          }
-          function step(d) {
-            if (group.length < 2) return;
-            idx = (idx + d + group.length) % group.length;
-            render();
-          }
-          function close() {
-            box.classList.remove('is-open');
-            document.documentElement.style.overflow = '';
-            boxImg.setAttribute('src', '');
-            group = [];
-            if (lastFocus && lastFocus.focus) lastFocus.focus();
-          }
-          if (!box.dataset.bound) {
-            box.dataset.bound = '1';
-            box.addEventListener('click', function (e) { if (e.target === box) close(); });
-            closeBtn.addEventListener('click', close);
-            prevBtn.addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
-            nextBtn.addEventListener('click', function (e) { e.stopPropagation(); step(1); });
-            document.addEventListener('keydown', function (e) {
-              if (!box.classList.contains('is-open')) return;
-              if (e.key === 'Escape') close();
-              else if (e.key === 'ArrowLeft') step(-1);
-              else if (e.key === 'ArrowRight') step(1);
-            });
-          }
-          var imgs = document.querySelectorAll('main img');
-          imgs.forEach(function (img) {
-            if (img.dataset.zoomBound) return;
-            if (img.closest('a')) return;                 // enlace: navega, no amplía
-            if (img.hasAttribute('data-no-zoom')) return;
-            if (img.getAttribute('alt') === '') return;    // decorativa
-            var w = img.clientWidth || img.naturalWidth || 0;
-            if (w && w < 80) return;                       // icono/logo pequeño
-            img.dataset.zoomBound = '1';
-            img.setAttribute('data-zoomable', '');
-            img.addEventListener('click', function () { openFrom(img); });
+        if (window.__fitoLightbox) return;
+        window.__fitoLightbox = true;
+        var group = [], idx = 0, lastFocus = null;
+        function box() { return document.getElementById('fito-lightbox'); }
+        function eligible(img) {
+          if (!img || img.closest('.fito-lightbox')) return false;
+          if (!img.closest('main')) return false;
+          if (img.closest('a')) return false;                 // enlace: navega
+          if (img.hasAttribute('data-no-zoom')) return false;
+          if (img.getAttribute('alt') === '') return false;    // decorativa
+          var w = img.clientWidth || img.naturalWidth || 0;
+          return !(w && w < 80);                               // icono/logo pequeño
+        }
+        function render() {
+          var b = box(), img = group[idx];
+          if (!b || !img) return;
+          var bi = b.querySelector('img');
+          bi.setAttribute('src', img.currentSrc || img.getAttribute('src'));
+          bi.setAttribute('alt', img.getAttribute('alt') || '');
+          b.classList.toggle('has-nav', group.length > 1);
+        }
+        function openFrom(img) {
+          var b = box(); if (!b) return;
+          var gal = img.getAttribute('data-gallery');
+          group = gal ? [].slice.call(document.querySelectorAll('main img[data-gallery="' + gal + '"]')) : [img];
+          idx = Math.max(0, group.indexOf(img));
+          render();
+          b.classList.add('is-open');
+          document.documentElement.style.overflow = 'hidden';
+          lastFocus = document.activeElement;
+          var c = b.querySelector('.fito-lightbox__close'); if (c) c.focus();
+        }
+        function step(d) { if (group.length > 1) { idx = (idx + d + group.length) % group.length; render(); } }
+        function close() {
+          var b = box(); if (!b) return;
+          b.classList.remove('is-open');
+          document.documentElement.style.overflow = '';
+          var bi = b.querySelector('img'); if (bi) bi.setAttribute('src', '');
+          group = [];
+          if (lastFocus && lastFocus.focus) lastFocus.focus();
+        }
+        document.addEventListener('click', function (e) {
+          var t = e.target;
+          if (t.closest && t.closest('.fito-lightbox__close')) { close(); return; }
+          if (t.closest && t.closest('.fito-lightbox__prev')) { e.stopPropagation(); step(-1); return; }
+          if (t.closest && t.closest('.fito-lightbox__next')) { e.stopPropagation(); step(1); return; }
+          if (t.id === 'fito-lightbox') { close(); return; }   // clic en el fondo
+          var img = t.closest && t.closest('main img');
+          if (img && eligible(img)) openFrom(img);
+        });
+        document.addEventListener('keydown', function (e) {
+          var b = box();
+          if (!b || !b.classList.contains('is-open')) return;
+          if (e.key === 'Escape') close();
+          else if (e.key === 'ArrowLeft') step(-1);
+          else if (e.key === 'ArrowRight') step(1);
+        });
+        // Solo cosmético (cursor zoom-in): marcar las imágenes ampliables en cada carga
+        function markZoomable() {
+          document.querySelectorAll('main img').forEach(function (img) {
+            if (eligible(img)) img.setAttribute('data-zoomable', '');
+            else img.removeAttribute('data-zoomable');
           });
         }
-        document.addEventListener('astro:page-load', initLightbox);
-        if (document.readyState !== 'loading') initLightbox();
-        else document.addEventListener('DOMContentLoaded', initLightbox);
+        document.addEventListener('astro:page-load', markZoomable);
       })();
     </script>
 
     <script is:inline>
       (function () {
+        if (window.__fitoReveal) return;
+        window.__fitoReveal = true;
+        var currentIo = null;
+        var safetyTimer = null;
         function setupReveal() {
+          if (currentIo) { currentIo.disconnect(); currentIo = null; }   // evita fuites entre navegacions
+          if (safetyTimer) clearTimeout(safetyTimer);
           var els = document.querySelectorAll('.reveal:not(.is-visible), .reveal-blur:not(.is-visible)');
           if (!('IntersectionObserver' in window)) {
             els.forEach(function (e) { e.classList.add('is-visible'); });
@@ -213,15 +213,14 @@ const orgSchema = {
             },
             { threshold: 0.08, rootMargin: '0px 0px -8% 0px' }
           );
+          currentIo = io;
           els.forEach(function (e) { io.observe(e); });
           // Red de seguridad: si algo no se revela (navegación, timing…), mostrarlo igualmente.
-          setTimeout(function () {
+          safetyTimer = setTimeout(function () {
             document.querySelectorAll('.reveal:not(.is-visible), .reveal-blur:not(.is-visible)').forEach(function (e) { e.classList.add('is-visible'); });
           }, 1600);
         }
         document.addEventListener('astro:page-load', setupReveal);
-        if (document.readyState !== 'loading') setupReveal();
-        else document.addEventListener('DOMContentLoaded', setupReveal);
       })();
     </script>
 

@@ -34,18 +34,13 @@ const t = useTranslations(locale);
       window.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update, { passive: true });
       document.addEventListener('astro:page-load', update);
-    }
-    function bindClick() {
-      var btn = document.getElementById('scroll-top');
-      if (!btn || btn.dataset.bound) return;
-      btn.dataset.bound = '1';
-      btn.addEventListener('click', function () {
+      // clic por delegación (robusto ante View Transitions)
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest || !e.target.closest('#scroll-top')) return;
         var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
       });
     }
-    document.addEventListener('astro:page-load', bindClick);
-    if (document.readyState !== 'loading') bindClick();
-    else document.addEventListener('DOMContentLoaded', bindClick);
+    update();
   })();
 </script>

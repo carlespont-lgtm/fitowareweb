@@ -385,8 +385,10 @@ const heroAlt = heroVideos[1];
       var p = v.play();
       if (p && p.catch) p.catch(function () {});
     }
-    document.addEventListener('astro:page-load', pickHeroVideo);
-    if (document.readyState !== 'loading') pickHeroVideo();
-    else document.addEventListener('DOMContentLoaded', pickHeroVideo);
+    if (!window.__fitoHeroVideo) {
+      window.__fitoHeroVideo = true;
+      document.addEventListener('astro:page-load', pickHeroVideo);
+    }
+    pickHeroVideo();
   })();
 </script>

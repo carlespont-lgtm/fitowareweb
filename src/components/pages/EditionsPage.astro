@@ -106,9 +106,11 @@ const t = useTranslations(locale);
         b.addEventListener('click', function () { select(b.getAttribute('data-ed')); });
       });
     }
-    document.addEventListener('astro:page-load', initEdTabs);
-    if (document.readyState !== 'loading') initEdTabs();
-    else document.addEventListener('DOMContentLoaded', initEdTabs);
+    if (!window.__fitoEdTabs) {
+      window.__fitoEdTabs = true;
+      document.addEventListener('astro:page-load', initEdTabs);
+    }
+    initEdTabs();
   })();
 </script>
 

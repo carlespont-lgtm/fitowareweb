@@ -111,8 +111,14 @@ scripts/       ← generadores de SVG (ver scripts/README.md)
   **no** sea decorativa (`alt=""`) ni un icono pequeño (<80px). Galerías: marcar imágenes
   con `data-gallery="nombre"` para tener flechas ‹ › (teclas ←/→). Cerrar con clic, ✕ o Esc.
 - **Animaciones** (`global.css`, respetan `prefers-reduced-motion`): `reveal` / `reveal-blur`
-  (aparición al hacer scroll, enganchadas al IntersectionObserver de `BaseLayout`),
-  `ken-burns` (foto de fondo de la banda), `photo-frame` (zoom en hover).
+  (aparición al hacer scroll con **cascada/stagger**, enganchadas al IntersectionObserver de
+  `BaseLayout`), `ken-burns`, `photo-frame` (zoom en hover).
+- **Efectos premium** (`BaseLayout.astro` + `global.css`): **barra de progreso de lectura**
+  (`#scroll-progress`, fija arriba), **scroll suave** + `scroll-padding-top`, y **transición de
+  página** (fade + desplazamiento) vía `::view-transition-*` de Astro ClientRouter.
+- **Vídeo de fondo del héroe** (`HomePage.astro`): 2 clips locales optimizados en
+  `public/videos/` (`hero-1/2.mp4` 720p, `preload="metadata"`, autoplay/muted/loop) que
+  **alternan aleatoriamente** por visita; póster propio y fallback `reduced-motion`.
 
 ---
 

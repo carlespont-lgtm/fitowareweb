@@ -393,32 +393,36 @@ const edMenu = [
 </style>
 
 <script is:inline>
+  // Menú móvil robusto ante View Transitions: delegación en document, listeners únicos.
   (function () {
-    function initMenu() {
+    if (window.__fitoMenu) return;
+    window.__fitoMenu = true;
+    function setOpen(open) {
       var btn = document.getElementById('menu-btn');
       var menu = document.getElementById('mobile-menu');
-      if (!btn || !menu || btn.dataset.bound) return;
-      btn.dataset.bound = '1';
-      function setOpen(open) {
-        menu.classList.toggle('hidden', !open);
-        btn.setAttribute('aria-expanded', String(open));
-        var o = btn.querySelector('.menu-open');
-        var c = btn.querySelector('.menu-close');
-        if (o) o.classList.toggle('hidden', open);
-        if (c) c.classList.toggle('hidden', !open);
-      }
-      btn.addEventListener('click', function () {
-        setOpen(menu.classList.contains('hidden'));
-      });
-      menu.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () { setOpen(false); });
-      });
-      window.addEventListener('resize', function () {
-        if (window.innerWidth >= 1024) setOpen(false);
-      });
+      if (!btn || !menu) return;
+      menu.classList.toggle('hidden', !open);
+      btn.setAttribute('aria-expanded', String(open));
+      var o = btn.querySelector('.menu-open');
+      var c = btn.querySelector('.menu-close');
+      if (o) o.classList.toggle('hidden', open);
+      if (c) c.classList.toggle('hidden', !open);
     }
-    document.addEventListener('astro:page-load', initMenu);
-    if (document.readyState !== 'loading') initMenu();
-    else document.addEventListener('DOMContentLoaded', initMenu);
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      var btn = t.closest && t.closest('#menu-btn');
+      if (btn) {
+        var menu = document.getElementById('mobile-menu');
+        setOpen(menu ? menu.classList.contains('hidden') : false);
+        return;
+      }
+      // al pulsar un enlace del menú móvil, ciérralo
+      if (t.closest && t.closest('#mobile-menu a')) setOpen(false);
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 1024) setOpen(false);
+    }, { passive: true });
+    // al navegar, arranca cerrado
+    document.addEventListener('astro:page-load', function () { setOpen(false); });
   })();
 </script>
